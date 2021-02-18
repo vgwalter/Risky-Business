@@ -1,0 +1,20 @@
+"","Sex","Investment_Type","Risk_Aversion","Owns","Number_of_Responses","Percentage"
+"1","Female","Combination_Funds","Very Risk Averse","No",162,92.5714285714286
+"2","Female","Combination_Funds","Very Risk Averse","Yes",13,7.42857142857143
+"3","Female","Combination_Funds","Somewhat Risk Averse","No",309,93.6363636363636
+"4","Female","Combination_Funds","Somewhat Risk Averse","Yes",21,6.36363636363636
+"5","Female","Combination_Funds","Risk Neutral","No",826,93.9704209328783
+"6","Female","Combination_Funds","Risk Neutral","Yes",53,6.02957906712173
+"7","Female","Combination_Funds","Somewhat Risk Tolerant","No",171,91.9354838709677
+"8","Female","Combination_Funds","Somewhat Risk Tolerant","Yes",15,8.06451612903226
+"9","Female","Combination_Funds","Very Risk Tolerant","No",47,100
+"10","Male","Combination_Funds","Very Risk Averse","No",530,96.8921389396709
+"11","Male","Combination_Funds","Very Risk Averse","Yes",17,3.10786106032907
+"12","Male","Combination_Funds","Somewhat Risk Averse","No",960,91.6030534351145
+"13","Male","Combination_Funds","Somewhat Risk Averse","Yes",88,8.3969465648855
+"14","Male","Combination_Funds","Risk Neutral","No",3449,91.0026385224274
+"15","Male","Combination_Funds","Risk Neutral","Yes",341,8.99736147757256
+"16","Male","Combination_Funds","Somewhat Risk Tolerant","No",1355,92.2396187882914
+"17","Male","Combination_Funds","Somewhat Risk Tolerant","Yes",114,7.76038121170865
+"18","Male","Combination_Funds","Very Risk Tolerant","No",622,90.8029197080292
+"19","Male","Combination_Funds","Very Risk Tolerant","Yes",63,9.1970802919708

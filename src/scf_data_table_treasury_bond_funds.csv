@@ -1,0 +1,20 @@
+"","Sex","Investment_Type","Risk_Aversion","Owns","Number_of_Responses","Percentage"
+"1","Female","Treasury_Bond_Funds","Very Risk Averse","No",157,89.7142857142857
+"2","Female","Treasury_Bond_Funds","Very Risk Averse","Yes",18,10.2857142857143
+"3","Female","Treasury_Bond_Funds","Somewhat Risk Averse","No",302,91.5151515151515
+"4","Female","Treasury_Bond_Funds","Somewhat Risk Averse","Yes",28,8.48484848484849
+"5","Female","Treasury_Bond_Funds","Risk Neutral","No",840,95.5631399317406
+"6","Female","Treasury_Bond_Funds","Risk Neutral","Yes",39,4.43686006825939
+"7","Female","Treasury_Bond_Funds","Somewhat Risk Tolerant","No",173,93.010752688172
+"8","Female","Treasury_Bond_Funds","Somewhat Risk Tolerant","Yes",13,6.98924731182796
+"9","Female","Treasury_Bond_Funds","Very Risk Tolerant","No",47,100
+"10","Male","Treasury_Bond_Funds","Very Risk Averse","No",514,93.9670932358318
+"11","Male","Treasury_Bond_Funds","Very Risk Averse","Yes",33,6.03290676416819
+"12","Male","Treasury_Bond_Funds","Somewhat Risk Averse","No",943,89.9809160305344
+"13","Male","Treasury_Bond_Funds","Somewhat Risk Averse","Yes",105,10.0190839694656
+"14","Male","Treasury_Bond_Funds","Risk Neutral","No",3431,90.5277044854881
+"15","Male","Treasury_Bond_Funds","Risk Neutral","Yes",359,9.47229551451187
+"16","Male","Treasury_Bond_Funds","Somewhat Risk Tolerant","No",1354,92.1715452688904
+"17","Male","Treasury_Bond_Funds","Somewhat Risk Tolerant","Yes",115,7.8284547311096
+"18","Male","Treasury_Bond_Funds","Very Risk Tolerant","No",618,90.2189781021898
+"19","Male","Treasury_Bond_Funds","Very Risk Tolerant","Yes",67,9.78102189781022

@@ -1,0 +1,1153 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Sex and Financial Risk Aversion},
+  pdfauthor={Victoria G. Walter},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\title{Sex and Financial Risk Aversion}
+\author{Victoria G. Walter}
+\date{}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+\textbf{``How More Women on Wall Street Could Have Prevented the
+Financial Crisis''}
+
+This 2016 Fortune Magazine title and concept are obviously very
+intriguing-- and controversial-- but is there any merit to the idea? Or
+is it just click bait?
+
+The article, an except of Newton-Small's new book ``Broad Influence: How
+Women Are Changing the Way America Works,'' discusses the Great
+Recession, it's causes, and the female regulators who were sent in to
+fix the situation.
+
+\emph{``The heart of the problem was risk, something mostly male Wall
+Street seemed to take irresponsibly and something the female regulators
+were sent in to mitigate. It's a cliched image: the straying reckless
+man and a woman at home holding things together. But there is some
+underlying truth in it. Neuroscience has shown links between risk taking
+and testosterone, which is 15 times as prevalent in men as in women.
+Many world leaders, from Bair to International Monetary Fund chief
+Christine Lagarde to British Labour deput leader Harriet Harman, who was
+then Prime Minister Gordon Brown's No.~2, go Japanese prime minister
+Shinzo Abe, became convinced that if more women had been working in
+senior Wall Street positions, the global financial crisis probably
+wouldn't have happened. And many saw the crisis as a wake-up call for
+Wall Street to diversify its ranks.''}
+
+The article goes on to explain a number of studies supporting the idea
+that women are more risk averse and that a greater female presence on
+Wall Street changes the overall behavior of trading floors to make fewer
+financially risky decisions.
+
+Intrigued, I was inspired to create this report.
+
+**I am curious regarding three points:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Are women more risk averse investors?
+\item
+  Are women more likely to invest in risk averse assets and less likely
+  to invest in riskier assets?
+\item
+  Do women invest more of their portfolios in risk averse assets and
+  less in riskier assets?**
+\end{enumerate}
+
+Thus, I analyze investors' sex, self-reported level of risk aversion,
+what assets they own, the market value of those assets, and how much of
+their portfolios are invested in those asset.
+
+In this report, you will find my methodology for this study, as well as
+several plots and Cochran-Mantel-Haenszel tests to answer my questions.
+
+\hypertarget{methodology}{%
+\section{Methodology}\label{methodology}}
+
+To do this, I select four common asset classes because of their distinct
+levels of risk.
+
+\hypertarget{explanation-of-asset-classes-and-risk}{%
+\subsection{Explanation of Asset Classes and
+Risk}\label{explanation-of-asset-classes-and-risk}}
+
+An important note: Stocks (equities) are generally more risky than bonds
+(debt instruments) because bondholders (those who own the company's
+debt) are paid before shareholders (those who own equity, stocks) if the
+company goes bankrupt. Thus, bondholders are more likely to receive
+their money back on their investment than shareholders/stock owners, and
+make bonds, generally, a less risky asset.
+
+Stocks - individual shares of publicly traded equities. Of the four
+asset classes, they generally the most volatile and they are the most
+difficult to diversify and adjust for risk.
+
+Stock Funds - a fund made up of stocks, including domestic stock funds,
+growth funds, index funds, global stock funds, sector funds. Still
+risky, but not as risky as stocks, because investors can diversify with
+many different shares to adjust for risk in companies and sectors.
+
+Combination Funds - funds that hold both stocks and bonds. Less risky,
+because bonds are generally less risky than stocks, so the combination
+fund is reasonably diversified and risk adjusted.
+
+Treasury Bond Funds - Treasury bonds are bonds backed by the United
+States government and are safest asset to own (except cash) because the
+United States has never defaulted. A treasury bond fund is just a fund
+made up of these bonds, most likely with different rates to maturity,
+such as a 2-year bond, 10-year bond, and 30-year bond.
+
+\hypertarget{data}{%
+\subsection{Data}\label{data}}
+
+I use the most recent The Survey of Consumer Finances (2016), a survey
+to assess the economic and financial health of those in the United
+States, including families' balance sheets, pensions, incomes, and
+demographic information. It is conducted by the Federal Reserve Bank of
+New York every four years or so, partially in person and partially over
+the phone. The data set is very useful because it has a large sample
+size -- over 30,000 respondents -- and it offers a great depth of
+information -- over 6,000 variables.
+
+However, it is important to remember that the survey is voluntary, and
+very long and invasive, so population skews very high towards those that
+are older, likely retired, and likely to have more time on their hands.
+Additionally, the survey is predominantly White and thus isn't properly
+representative of the United States racial makeup in 2016 -- also a flaw
+of it being a very long voluntary survey.
+
+\hypertarget{cleaning}{%
+\section{Cleaning}\label{cleaning}}
+
+First I import and clean my data -- the 2016 Survey of Consumer
+Finances. \#\# Importing 2016 Survey of Consumer Finances Data
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{scf_data <-}\StringTok{ }\KeywordTok{read_feather}\NormalTok{(}\StringTok{'../data/scf_data.ftr'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{select-variables}{%
+\subsection{Select Variables}\label{select-variables}}
+
+Once the data is imported, I select the specific columns I am Using for
+my analysis and rename them so they make sense. I chose the following
+variables:
+
+Variable Description
+
+Sex\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots What
+is the sex of the individual who makes the financial decisions in the
+Respondent's family?
+
+Financial\_Risk\_Willingness\ldots\ldots\ldots\ldots\ldots..How willing
+to take financial risks is the individual who makes the financial
+decisions in the Respondent's family? On a Scale of -1 (Not at All
+Willing) to 10 (Very Willing)
+
+Owns\_Stocks\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots..Does
+the respondent own stocks?
+
+Owns\_Stock\_Funds\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots Does
+the respondent own stock funds?
+
+Owns\_Combination\_Funds Does the respondent own combination funds?
+
+Owns\_Treasury\_Bonds\_Funds Does the respondent own treasury bond
+funds?
+
+TMV\_Stocks Total Market Value of the Stocks the Respondent Owns in 2016
+U.S. Dollars
+
+TMV\_Stock\_Funds Total Market Value of the Stock Funds the Respondent
+Owns in 2016 U.S. Dollars
+
+TMV\_Combination\_Funds Total Market Value of the Combination Funds the
+Respondent Owns in 2016 U.S. Dollars
+
+TMV\_Treasury\_Bond\_Funds Total Market Value of the Treasury Bond Funds
+Funds the Respondent Owns in 2016 U.S. Dollars
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{scf_data }\OperatorTok{%<>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(}\StringTok{"Sex"}\NormalTok{ =}\StringTok{ "X8000"}\NormalTok{,}
+         \StringTok{"Financial_Risk_Willingness"}\NormalTok{ =}\StringTok{ "X7557"}\NormalTok{, }
+         \StringTok{"Owns_Stocks"}\NormalTok{ =}\StringTok{ "X3913"}\NormalTok{, }
+         \StringTok{"Owns_Stock_Funds"}\NormalTok{ =}\StringTok{ "X3821"}\NormalTok{, }
+         \StringTok{"Owns_Combination_Funds"}\NormalTok{ =}\StringTok{ "X3829"}\NormalTok{, }
+         \StringTok{"Owns_Treasury_Bond_Funds"}\NormalTok{ =}\StringTok{ "X3825"}\NormalTok{, }
+         \StringTok{"TMV_Stocks"}\NormalTok{ =}\StringTok{ "X3915"}\NormalTok{, }
+         \StringTok{"TMV_Stock_Funds"}\NormalTok{ =}\StringTok{ "X3822"}\NormalTok{, }
+         \StringTok{"TMV_Combination_Funds"}\NormalTok{ =}\StringTok{ "X3830"}\NormalTok{,}
+         \StringTok{"TMV_Treasury_Bond_Funds"}\NormalTok{ =}\StringTok{ "X3826"}\NormalTok{,)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{recode-and-factor-existing-categorical-variables}{%
+\subsection{Recode and Factor Existing Categorical
+Variables}\label{recode-and-factor-existing-categorical-variables}}
+
+Next, I recode the variables that are categorical so that they make
+sense, and make them factored
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{scf_data}\OperatorTok{$}\NormalTok{Sex =}\StringTok{ }\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{recode_factor}\NormalTok{(}\KeywordTok{as.character}\NormalTok{(scf_data}\OperatorTok{$}\NormalTok{Sex), }\StringTok{"1"}\NormalTok{=}\StringTok{"Female"}\NormalTok{,}\StringTok{"5"}\NormalTok{=}\StringTok{"Male"}\NormalTok{)}
+
+\NormalTok{scf_data}\OperatorTok{$}\NormalTok{Owns_Stocks <-}\StringTok{ }\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{recode}\NormalTok{(}\KeywordTok{as.character}\NormalTok{(scf_data}\OperatorTok{$}\NormalTok{Owns_Stocks), }\StringTok{"1"}\NormalTok{=}\StringTok{"Owns"}\NormalTok{, }\StringTok{"5"}\NormalTok{=}\StringTok{"Does Not Own"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+For the fund variables -- stock funds, combination funds, and treasury
+bond funds -- the coding is as follows: 1 = Owns \_\_\_\_\_ funds, 5 =
+Doesn't own \_\_\_\_\_ funds, but owns other funds, 0 = Doesn't own any
+funds
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{scf_data}\OperatorTok{$}\NormalTok{Owns_Stock_Funds <-}\StringTok{ }\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{recode}\NormalTok{(}\KeywordTok{as.character}\NormalTok{(scf_data}\OperatorTok{$}\NormalTok{Owns_Stock_Funds),}\StringTok{"1"}\NormalTok{=}\StringTok{"Owns"}\NormalTok{, }
+                                                                                \StringTok{"5"}\NormalTok{=}\StringTok{"Does Not Own"}\NormalTok{,}
+                                                                                \StringTok{"0"}\NormalTok{=}\StringTok{"Does Not Own"}\NormalTok{)}
+
+\NormalTok{scf_data}\OperatorTok{$}\NormalTok{Owns_Combination_Funds <-}\StringTok{ }\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{recode}\NormalTok{(}\KeywordTok{as.character}\NormalTok{(scf_data}\OperatorTok{$}\NormalTok{Owns_Combination_Funds), }\StringTok{"1"}\NormalTok{=}\StringTok{"Owns"}\NormalTok{, }
+                                                                                    \StringTok{"5"}\NormalTok{=}\StringTok{"Does Not Own"}\NormalTok{,}
+                                                                                    \StringTok{"0"}\NormalTok{=}\StringTok{"Does Not Own"}\NormalTok{)}
+
+\NormalTok{scf_data}\OperatorTok{$}\NormalTok{Owns_Treasury_Bond_Funds <-}\StringTok{ }\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{recode}\NormalTok{(}\KeywordTok{as.character}\NormalTok{(scf_data}\OperatorTok{$}\NormalTok{Owns_Treasury_Bond_Funds), }
+                                                                                    \StringTok{"1"}\NormalTok{=}\StringTok{"Owns"}\NormalTok{, }
+                                                                                    \StringTok{"5"}\NormalTok{=}\StringTok{"Does Not Own"}\NormalTok{,}
+                                                                                    \StringTok{"0"}\NormalTok{=}\StringTok{"Does Not Own"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{create-new-variables}{%
+\subsection{Create New Variables}\label{create-new-variables}}
+
+Additionally, I am creating a few new variables to account for how much
+a Respondent owns in one asset relative to the other assets.
+
+First, I create ``TMV\_Investments,'' or the Total Market Value of
+Stocks, Stock Funds, Combination Funds, and Treasury Bond Funds the
+Respondent owns added together.
+
+Then, I calculate the percentage of the Respondent's portfolio in each
+asset. This is done by dividing the Total Market Value of the Asset by
+the Total Market Value of all four assets combined and then multiplied
+by 100\%.
+
+\begin{verbatim}
+     Variable                                               Description
+"Percent_Treasury_Bonds"           Percentage of the Respondent's Portfolio in Treasury Bond Funds
+"Percent_Combination_Funds"        Percentage of the Respondent's Portfolio in Combination Funds
+"Percent_Stock_Funds"              Percentage of the Respondent's Portfolio in Stock Funds
+"Percent_Stocks"                   Percentage of the Respondent's Portfolio in Stocks
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{scf_data }\OperatorTok{%<>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{TMV_Investments =}\NormalTok{ TMV_Treasury_Bond_Funds }\OperatorTok{+}\StringTok{ }\NormalTok{TMV_Stocks }\OperatorTok{+}\StringTok{ }\NormalTok{TMV_Stock_Funds }\OperatorTok{+}\StringTok{ }\NormalTok{TMV_Combination_Funds,}
+         \DataTypeTok{Percent_Treasury_Bond_Funds =}\NormalTok{ TMV_Treasury_Bond_Funds }\OperatorTok{/}\StringTok{ }\NormalTok{TMV_Investments }\OperatorTok{*}\StringTok{ }\DecValTok{100}\NormalTok{,}
+         \DataTypeTok{Percent_Combination_Funds =}\NormalTok{ TMV_Combination_Funds }\OperatorTok{/}\StringTok{ }\NormalTok{TMV_Investments }\OperatorTok{*}\StringTok{ }\DecValTok{100}\NormalTok{,}
+         \DataTypeTok{Percent_Stock_Funds =}\NormalTok{ TMV_Stock_Funds }\OperatorTok{/}\StringTok{ }\NormalTok{TMV_Investments }\OperatorTok{*}\StringTok{ }\DecValTok{100}\NormalTok{,}
+         \DataTypeTok{Percent_Stocks =}\NormalTok{ TMV_Stocks }\OperatorTok{/}\StringTok{ }\NormalTok{TMV_Investments }\OperatorTok{*}\StringTok{ }\DecValTok{100}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Next, I create the ``Risk\_Aversion'' variable, which takes the
+Financial Risk Willingness scale of -1 to 10 and groups it into a
+condensed categorical variable.
+
+\begin{verbatim}
+  Risk Aversion (New Variable)              Financial Risk Willingness (Variable from SCF)
+     Risk Averse                                         -1, 1, 2, 3
+     Risk Neutral                                            4, 5, 6
+     Risk Tolerant                                       7, 8, 9, 10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{scf_data}\OperatorTok{$}\NormalTok{Risk_Aversion <-}\StringTok{ }\KeywordTok{cut}\NormalTok{(scf_data}\OperatorTok{$}\NormalTok{Financial_Risk_Willingness,}
+                                                   \DataTypeTok{breaks =} \KeywordTok{c}\NormalTok{(}\OperatorTok{-}\OtherTok{Inf}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{7}\NormalTok{, }\OtherTok{Inf}\NormalTok{),}
+                                                   \DataTypeTok{labels =} \KeywordTok{c}\NormalTok{(}\StringTok{"Risk Averse"}\NormalTok{, }\StringTok{"Risk Neutral"}\NormalTok{, }\StringTok{"Risk Tolerant"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+Then, I order the Risk Aversion variable from risk averse to risk
+tolerant.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{scf_data}\OperatorTok{$}\NormalTok{Risk_Aversion <-}\StringTok{ }\KeywordTok{ordered}\NormalTok{(scf_data}\OperatorTok{$}\NormalTok{Risk_Aversion, }\DataTypeTok{levels =} \KeywordTok{c}\NormalTok{(}\StringTok{"Risk Averse"}\NormalTok{, }\StringTok{"Risk Neutral"}\NormalTok{, }\StringTok{"Risk Tolerant"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{filtering-survey-data-for-only-respondents-that-own-investments}{%
+\subsection{Filtering Survey Data for Only Respondents that Own
+Investments}\label{filtering-survey-data-for-only-respondents-that-own-investments}}
+
+The final step in cleaning is filtering only for Respondents who's Total
+Market Value of Investments (Stocks + Stock Funds +Combination Funds +
+Treasury Bond Funds) is Greater than 0. Therefore this analysis will
+only be run on Respondents that own at least 1 of the four assets.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{scf_data_cleaned <-}\StringTok{ }\NormalTok{scf_data }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(TMV_Investments}\OperatorTok{>}\DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+This significantly reduces the data set, from 31,240 observations to
+9,156 From this point on in the analysis, I will be referring to these
+filtered Respondents as ``Investors.''
+
+\hypertarget{visualizations}{%
+\section{Visualizations}\label{visualizations}}
+
+\hypertarget{the-number-of-male-and-female-investors-that-own-each-asset}{%
+\subsection{The Number of Male and Female Investors That Own Each
+Asset}\label{the-number-of-male-and-female-investors-that-own-each-asset}}
+
+\hypertarget{table-1-count_asset}{%
+\subsubsection{Table 1: count\_asset}\label{table-1-count_asset}}
+
+I start my analysis by creating a pivot table, ``count\_assets,'' of the
+number of male and female investors that own and do not each asset.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{count_asset <-}\StringTok{ }\NormalTok{scf_data_cleaned }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(}\DataTypeTok{Stocks=}\NormalTok{Owns_Stocks, }\DataTypeTok{Stock_Funds=}\NormalTok{Owns_Stock_Funds, }\DataTypeTok{Combination_Funds=}\NormalTok{Owns_Combination_Funds, }\DataTypeTok{Treasury_Bond_Funds=}\NormalTok{Owns_Treasury_Bond_Funds, Sex) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pivot_longer}\NormalTok{(}\OperatorTok{-}\NormalTok{Sex, }\DataTypeTok{names_to=}\StringTok{'Asset'}\NormalTok{, }\DataTypeTok{values_to=}\StringTok{'Response'}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{count}\NormalTok{(Sex, Asset, Response)}
+\end{Highlighting}
+\end{Shaded}
+
+I factor and order the levels of the Asset variable in ``count\_assets''
+so that the assets are in order of riskiest to least risky.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{count_asset}\OperatorTok{$}\NormalTok{Asset <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(count_asset}\OperatorTok{$}\NormalTok{Asset, }\DataTypeTok{levels =} \KeywordTok{c}\NormalTok{(}\StringTok{"Stocks"}\NormalTok{, }\StringTok{"Stock_Funds"}\NormalTok{, }\StringTok{"Combination_Funds"}\NormalTok{, }\StringTok{"Treasury_Bond_Funds"}\NormalTok{, }\DataTypeTok{ordered =} \OtherTok{TRUE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{graph-1}{%
+\subsubsection{Graph 1}\label{graph-1}}
+
+Then I make a bar plot with ``count\_assets'' using ggplot2 to visualize
+the Number of Investors who own each asset, broken down by sex. I use
+the Wes Anderson color palette Grand Budapest 1 from one of my favorite
+movies.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(count_asset, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{Sex, }\DataTypeTok{y=}\NormalTok{n, }\DataTypeTok{fill=}\NormalTok{Response))}\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{stat =} \StringTok{'identity'}\NormalTok{, }\DataTypeTok{position =} \StringTok{'dodge'}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{facet_grid}\NormalTok{(}\OperatorTok{~}\NormalTok{Asset)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Graph 1: The Number of Male and Female Investors that Own Each Asset, }\CharTok{\textbackslash{}n}\StringTok{   from Riskiest to Least Risky Asset (left to right)"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Number of Investors"}\NormalTok{, }\DataTypeTok{x =} \StringTok{"Asset"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_text}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{label=}\NormalTok{n), }\DataTypeTok{position=}\KeywordTok{position_dodge}\NormalTok{(}\DataTypeTok{width=}\FloatTok{0.9}\NormalTok{), }\DataTypeTok{vjust=}\OperatorTok{-}\FloatTok{0.25}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme_classic}\NormalTok{()}\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{angle =} \DecValTok{20}\NormalTok{, }\DataTypeTok{vjust =} \FloatTok{1.2}\NormalTok{, }\DataTypeTok{hjust=}\DecValTok{1}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \StringTok{'top'}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{hjust =} \FloatTok{0.4}\NormalTok{))}\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_fill_manual}\NormalTok{(}\DataTypeTok{values =} \KeywordTok{wes_palette}\NormalTok{(}\StringTok{"GrandBudapest1"}\NormalTok{, }\DataTypeTok{n =} \DecValTok{3}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{scf_analysis_files/figure-latex/unnamed-chunk-11-1.pdf}
+
+\hypertarget{insights-from-graph-1}{%
+\subsubsection{Insights from Graph 1:}\label{insights-from-graph-1}}
+
+There are far more male investors than female investors in this data
+set. There are more men that own each asset than women, and therefore
+the percentage of men that own the asset is greater than the percentage
+of women that own the asset, for all four assets. Stocks are the most
+popularly owned asset, followed by Stock Funds, Treasury Bond Funds, and
+Combination Funds.
+
+1,105 women own stocks and 512 do not, compared to 5,612 men who own
+stocks and 1,927 who do not. 841 women own stock funds and 776 do not,
+versus 4,247 men who own stock funds and 3,292 who do not. 102 women own
+combination funds and 1,515 do not, compared to 623 men who own
+combination funds and 6,916 who do not. 98 women own treasury bond funds
+and 1,519 do not, versus 679 men who own treasury bond funds and 6,860
+who do not.
+
+\hypertarget{the-percentage-of-male-and-female-investors-by-risk-aversion}{%
+\subsection{The Percentage of Male and Female Investors by Risk
+Aversion}\label{the-percentage-of-male-and-female-investors-by-risk-aversion}}
+
+\hypertarget{table-2-percent_sex_risk}{%
+\subsubsection{Table 2:
+percent\_sex\_risk}\label{table-2-percent_sex_risk}}
+
+Next, I am interested in how male and female investors describe their
+level of risk aversion. To do this, I created a pivot table,
+``percent\_sex\_risk,'' and then created a ``Percentage'' column. It
+makes more sense to use percentages instead of number of investors for
+this analysis, because there are so many more male investors than female
+investors.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{percent_sex_risk <-}\StringTok{ }\NormalTok{scf_data_cleaned }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(Sex, Risk_Aversion) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(Sex, Risk_Aversion) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{Number_of_Responses=}\KeywordTok{n}\NormalTok{()) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(Sex) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Percentage=}\NormalTok{Number_of_Responses}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(Number_of_Responses)}\OperatorTok{*}\DecValTok{100}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `summarise()` regrouping output by 'Sex' (override with `.groups` argument)
+\end{verbatim}
+
+\hypertarget{graph-2}{%
+\subsubsection{Graph 2}\label{graph-2}}
+
+I made a barplot with ``percent\_sex\_risk'' to visualize if there are
+any noticeable differences between how the sexes report their level of
+risk averison.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(percent_sex_risk, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Risk_Aversion, }\DataTypeTok{y =}\NormalTok{ Percentage, }\DataTypeTok{fill =}\NormalTok{ Sex))}\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{stat=}\StringTok{'identity'}\NormalTok{, }\DataTypeTok{position=}\StringTok{'dodge'}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"Risk Aversion"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Percentage"}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Graph 2: Percentage of Male and Female Investors by Risk Aversion"}\NormalTok{)}\OperatorTok{+}\StringTok{   }
+\StringTok{  }\KeywordTok{geom_text}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{label=}\KeywordTok{round}\NormalTok{(Percentage, }\DataTypeTok{digits =} \DecValTok{2}\NormalTok{)), }\DataTypeTok{position=}\KeywordTok{position_dodge}\NormalTok{(}\DataTypeTok{width=}\FloatTok{0.9}\NormalTok{), }\DataTypeTok{vjust=}\OperatorTok{-}\FloatTok{0.25}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme_classic}\NormalTok{()}\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \StringTok{"top"}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{angle =} \DecValTok{15}\NormalTok{, }\DataTypeTok{vjust =} \FloatTok{1.2}\NormalTok{, }\DataTypeTok{hjust=}\DecValTok{1}\NormalTok{))}\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{scale_fill_manual}\NormalTok{(}\DataTypeTok{values =} \KeywordTok{wes_palette}\NormalTok{(}\StringTok{"GrandBudapest1"}\NormalTok{, }\DataTypeTok{n =} \DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{scf_analysis_files/figure-latex/unnamed-chunk-13-1.pdf}
+
+\hypertarget{insights-from-graph-2}{%
+\subsubsection{Insights from Graph 2}\label{insights-from-graph-2}}
+
+Male investors are risk tolerant at twice the level of female investors
+-- 28.57\% vs.~14.41\%.
+
+There is a much greater percentage of female investors who are risk
+averse than men -- 31.23\% vs.~21.16\%.
+
+A slightly greater percentage of female investors are risk neutral than
+male investors, but it is close -- 54.36\% vs.~50.27\%.
+
+\hypertarget{the-percentage-of-investors-that-own-each-asset-by-sex-and-risk-aversion}{%
+\subsection{The Percentage of Investors that Own Each Asset, by Sex and
+Risk
+Aversion}\label{the-percentage-of-investors-that-own-each-asset-by-sex-and-risk-aversion}}
+
+\hypertarget{table-3-percent_own}{%
+\subsubsection{Table 3: percent\_own}\label{table-3-percent_own}}
+
+Next, I create the pivot table, ``percent\_own,'' to observe what
+percentage of investors who own each asset identity as different levels
+of risk aversion. This is useful to see, considering that the each asset
+has a different level of risk. Do those that own risky assets have a
+higher percentage of people that are risk tolerant? Do those that own
+less risky assets have a higher percentage of people that are risk
+averse? ``Percent\_own'' also breaks this information down by sex.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{percent_own <-}\StringTok{ }\NormalTok{scf_data_cleaned }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(}\DataTypeTok{Stocks=}\NormalTok{Owns_Stocks, }\DataTypeTok{Stock_Funds=}\NormalTok{Owns_Stock_Funds, }\DataTypeTok{Combination_Funds=}\NormalTok{Owns_Combination_Funds, }\DataTypeTok{Treasury_Bond_Funds=}\NormalTok{Owns_Treasury_Bond_Funds, Sex, Risk_Aversion) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pivot_longer}\NormalTok{(}\OperatorTok{-}\KeywordTok{c}\NormalTok{(Sex, Risk_Aversion), }\DataTypeTok{names_to=} \StringTok{'Asset'}\NormalTok{,  }\DataTypeTok{values_to=}\StringTok{'Response'}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{count}\NormalTok{(Sex, Asset, Risk_Aversion, Response) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(Sex, Asset, Risk_Aversion) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{percent =}\NormalTok{ n }\OperatorTok{/}\StringTok{ }\KeywordTok{sum}\NormalTok{(n) }\OperatorTok{*}\StringTok{ }\DecValTok{100}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+I make Asset column a factor and order it from the most risky asset to
+least risky asset.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{percent_own}\OperatorTok{$}\NormalTok{Asset <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(percent_own}\OperatorTok{$}\NormalTok{Asset, }\DataTypeTok{levels =} \KeywordTok{c}\NormalTok{(}\StringTok{"Stocks"}\NormalTok{, }\StringTok{"Stock_Funds"}\NormalTok{, }\StringTok{"Combination_Funds"}\NormalTok{, }\StringTok{"Treasury_Bond_Funds"}\NormalTok{, }\DataTypeTok{ordered =} \OtherTok{TRUE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+I filter the Owns column in ``percent\_own,'' to create
+``percent\_own\_filtered,'' so that only investors that own that
+particular asset are in the data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{percent_own_filtered <-}\StringTok{ }\NormalTok{percent_own }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(Response}\OperatorTok{==}\StringTok{"Owns"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{graph-3}{%
+\subsubsection{Graph 3}\label{graph-3}}
+
+I made a barplot to visualize ``percent\_own\_filtered'' and see if the
+investors in this data set invest according to their risk tolerance.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(percent_own_filtered, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Risk_Aversion, }\DataTypeTok{y =}\NormalTok{ percent, }\DataTypeTok{fill =}\NormalTok{ Risk_Aversion))}\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{stat=}\StringTok{'identity'}\NormalTok{, }\DataTypeTok{position =} \StringTok{'dodge'}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\NormalTok{Asset }\OperatorTok{+}\StringTok{ }\NormalTok{Sex, }\DataTypeTok{ncol=}\DecValTok{4}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"Risk Aversion"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Percentage"}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Graph 3: Percentage of Investors that Own Each Asset, }\CharTok{\textbackslash{}n}\StringTok{ by Risk Aversion and Sex"}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_text}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{label=}\KeywordTok{round}\NormalTok{(percent, }\DataTypeTok{digits =} \DecValTok{2}\NormalTok{)), }\DataTypeTok{position=}\KeywordTok{position_dodge}\NormalTok{(}\DataTypeTok{width=}\FloatTok{0.9}\NormalTok{), }\DataTypeTok{vjust=}\OperatorTok{-}\FloatTok{0.25}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme_classic}\NormalTok{()}\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text.x =} \KeywordTok{element_blank}\NormalTok{())}\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.ticks.x =} \KeywordTok{element_blank}\NormalTok{())}\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \StringTok{"top"}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_fill_manual}\NormalTok{(}\DataTypeTok{values =} \KeywordTok{wes_palette}\NormalTok{(}\StringTok{"GrandBudapest1"}\NormalTok{, }\DataTypeTok{n =} \DecValTok{3}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{scf_analysis_files/figure-latex/unnamed-chunk-17-1.pdf}
+
+\hypertarget{insights-from-graph-3}{%
+\subsubsection{Insights from Graph 3}\label{insights-from-graph-3}}
+
+There are three instances of investors investing in accordance with
+their risk aversion.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  The share of men who are invested in stocks increases with increased
+  risk tolerance: 68.71\% of risk averse men own stocks, 72.88\% of risk
+  neutral men own stocks, and 81.42\% of risk tolerant men own stocks.
+  This makes sense because stocks are the riskiest of the four asssets.
+\item
+  The share of women who are invested in stock funds increases as women
+  become risk tolerant: 47.33\% of risk averse women own stock funds,
+  51.08\% of risk neutral women own stock funds, and 65.67\% of risk
+  tolerant women own stock funds. This also makes sense because stock
+  funds are the second riskiest of the four assets.
+\item
+  The share of risk averse women who own treasury bond funds is nearly
+  twice that of the risk neutral and risk tolerant women who own
+  treasury bond funds. This makes sense because treasury bond funds are
+  the least risky of the four assets.
+\end{enumerate}
+
+Aside from these instances, there seems to be very little variation in
+the percentage of each asset owned across the levels of risk aversion.
+Thus, risk aversion may not have an effect on which assets an investor
+chooses to invest in.
+
+\hypertarget{portfolio-makeup-by-sex-and-risk-aversion}{%
+\subsection{Portfolio Makeup, by Sex and Risk
+Aversion}\label{portfolio-makeup-by-sex-and-risk-aversion}}
+
+\hypertarget{table-4-percent_asset_sex_risk}{%
+\subsubsection{Table 4:
+percent\_asset\_sex\_risk}\label{table-4-percent_asset_sex_risk}}
+
+Now, I am interested to analyze not just if the investor owns the
+particular asset, but if they do, how much of their portfolio does the
+asset makeup. Is the majority of their portfolio in one asset? Or are
+they diversified with several types of assets?
+
+I create a pivot table, ``percent\_asset\_sex\_risk,'' to observe this.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{percent_asset_sex_risk <-}\StringTok{ }\NormalTok{scf_data_cleaned }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(}\DataTypeTok{Stocks=}\NormalTok{Percent_Stocks, }\DataTypeTok{Stock_Funds=}\NormalTok{Percent_Stock_Funds, }\DataTypeTok{Combination_Funds=}\NormalTok{Percent_Combination_Funds, }\DataTypeTok{Treasury_Bond_Funds=}\NormalTok{Percent_Treasury_Bond_Funds, Sex, Risk_Aversion) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{pivot_longer}\NormalTok{(}\OperatorTok{-}\KeywordTok{c}\NormalTok{(Sex, Risk_Aversion), }\DataTypeTok{names_to=}\StringTok{'Asset'}\NormalTok{, }\DataTypeTok{values_to=}\StringTok{'Percentage_of_Portfolio'}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(Sex, Asset, Risk_Aversion, Percentage_of_Portfolio)}
+\end{Highlighting}
+\end{Shaded}
+
+I make the Asset variable a factor and order the assets from riskiest to
+least risk.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{percent_asset_sex_risk}\OperatorTok{$}\NormalTok{Asset <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(percent_asset_sex_risk}\OperatorTok{$}\NormalTok{Asset, }\DataTypeTok{levels =} \KeywordTok{c}\NormalTok{(}\StringTok{"Stocks"}\NormalTok{, }\StringTok{"Stock_Funds"}\NormalTok{, }\StringTok{"Combination_Funds"}\NormalTok{, }\StringTok{"Treasury_Bond_Funds"}\NormalTok{, }\DataTypeTok{ordered =} \OtherTok{TRUE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+I filter ``percent\_asset\_sex\_risk,'' and create
+``percent\_asset\_sex\_risk\_filtered,'' so that it only shows data for
+investors who own each asset, which effectively is if the percentage of
+their portfolio in that asset is greater than zero.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{percent_asset_sex_risk_filtered <-}\StringTok{ }\NormalTok{percent_asset_sex_risk }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(Percentage_of_Portfolio }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{graph-4}{%
+\subsubsection{Graph 4}\label{graph-4}}
+
+I create boxplots to visualize the distribution of portfolio makeup
+across the investors and grouped by sex and risk aversion.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(percent_asset_sex_risk_filtered, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Sex, }\DataTypeTok{y =}\NormalTok{ Percentage_of_Portfolio, }\DataTypeTok{col =}\NormalTok{ Risk_Aversion))}\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_boxplot}\NormalTok{()}\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\NormalTok{Asset, }\DataTypeTok{ncol =} \DecValTok{4}\NormalTok{)}\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"Sex"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Percentage of Investors' Portfolios"}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Graph 4: Boxplots of the Percentage of Respondents' Portfolios in Each Asset, }\CharTok{\textbackslash{}n}\StringTok{ Grouped by Sex and Colored by Risk Aversion"}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme_classic}\NormalTok{()}\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \StringTok{"top"}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_color_manual}\NormalTok{(}\DataTypeTok{values =} \KeywordTok{wes_palette}\NormalTok{(}\StringTok{"GrandBudapest1"}\NormalTok{, }\DataTypeTok{n =} \DecValTok{3}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{scf_analysis_files/figure-latex/unnamed-chunk-21-1.pdf}
+
+\hypertarget{insights-from-graph-4}{%
+\subsubsection{Insights from Graph 4}\label{insights-from-graph-4}}
+
+These results are pretty interesting!
+
+It seems that for most investors who own stocks, the majority of their
+portfolio is in stocks. For both men and women, the 50th and 75th
+percentiles are at 100\% for all levels of risk aversion.
+
+The results for stock funds are particularly interesting because we see
+distinct differences between male and female investors. The 50th and
+75th percentiles are still at 100\%, but for male investors, the 25th
+and 50th percentiles decrease as male investors become more comfortable
+with risk.
+
+For Combination Funds and Treasury Bond Funds, the 25th, 50th, and 75th
+percentiles decrease as both male and female investors become more
+comfortable with risk. Combination and Treasury Bond Funds are the least
+risky. Thus, it seems that investors who are risk averse own a greater
+share of their portfolio in the least risky assets. Logically, this
+makes a lot of sense.
+
+\hypertarget{tests-for-statistical-significance}{%
+\section{Tests for Statistical
+Significance}\label{tests-for-statistical-significance}}
+
+I use the Cochran-Mantel-Haenszel test to analyze if it is statistically
+significant that one sex is more likely than the other to invest than
+the other while controlling for Risk Aversion. The variables I will be
+using are Sex, Asset, Risk Aversion, and Owns -- whether or not the
+investor owns that particular investment.
+
+The Cochran-Mantel-Haenszel test is useful because it is used for
+categorical variables, can analyze up to three variables at a time (a
+chi-squared test can only analyze two at a time), and it controls for
+how there are six times as many male investors as female investors.
+
+First, I will run this test on all of the asset classes together, and
+then each asset class individually. I run the extra tests because I am
+curious to see if the results change for each asset class.
+
+\hypertarget{all-asset-classes}{%
+\subsection{All Asset Classes}\label{all-asset-classes}}
+
+\hypertarget{create-table}{%
+\subsubsection{Create Table}\label{create-table}}
+
+I start by creating a data table, ``dt,'' to organize the data which I
+will use throughout the process of checking for statistical
+significance. This includes the count and percentage for each sex, level
+of risk aversion, and asset owned.
+
+For example: How many women are risk averse and owned stocks? What
+percentage of men are risk neutral and own combination funds?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dt <-}\StringTok{ }\NormalTok{scf_data_cleaned }\OperatorTok{%>%}\StringTok{ }\KeywordTok{select}\NormalTok{(Sex, }\DataTypeTok{Treasury_Bond_Funds=}\NormalTok{Owns_Treasury_Bond_Funds, }\DataTypeTok{Stocks=}\NormalTok{Owns_Stocks, }\DataTypeTok{Stock_Funds=}\NormalTok{Owns_Stock_Funds, }\DataTypeTok{Combination_Funds=}\NormalTok{Owns_Combination_Funds, Risk_Aversion) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{pivot_longer}\NormalTok{(}\OperatorTok{-}\KeywordTok{c}\NormalTok{(Sex, Risk_Aversion), }\DataTypeTok{names_to=}\StringTok{'Asset'}\NormalTok{, }\DataTypeTok{values_to=}\StringTok{'Owns'}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(Sex, Asset, Risk_Aversion, Owns) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{Number_of_Responses=}\KeywordTok{n}\NormalTok{()) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(Sex, Asset, Risk_Aversion) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Percentage=}\NormalTok{Number_of_Responses}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(Number_of_Responses)}\OperatorTok{*}\DecValTok{100}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `summarise()` regrouping output by 'Sex', 'Asset', 'Risk_Aversion' (override with `.groups` argument)
+\end{verbatim}
+
+Here, I combine the Asset and Risk Aversion variables into one column
+because the Cochran-Mantel-Haenszel test can only analyze three
+categorical variables at a time. Thus, "Asset\_\_Risk\_Aversion,"
+collapses the two variables into one. Also, I condense the table by not
+selecting ``Percentage.''
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dt_all <-}\StringTok{ }\KeywordTok{xtabs}\NormalTok{(Number_of_Responses }\OperatorTok{~}\StringTok{ }\NormalTok{Asset__Risk_Aversion }\OperatorTok{+}\NormalTok{Sex }\OperatorTok{+}\StringTok{ }\NormalTok{Owns, }\DataTypeTok{data =}\NormalTok{ dt }\OperatorTok{%>%}\StringTok{ }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Asset__Risk_Aversion =} \KeywordTok{paste0}\NormalTok{(Asset,}\StringTok{'_'}\NormalTok{, Risk_Aversion)))}
+\end{Highlighting}
+\end{Shaded}
+
+This is what the data looks like.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ftable}\NormalTok{(dt_all)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                                          Owns Does Not Own Owns
+## Asset__Risk_Aversion              Sex                          
+## Combination_Funds_Risk Averse     Female               471   34
+##                                   Male                1490  105
+## Combination_Funds_Risk Neutral    Female               826   53
+##                                   Male                3449  341
+## Combination_Funds_Risk Tolerant   Female               218   15
+##                                   Male                1977  177
+## Stock_Funds_Risk Averse           Female               266  239
+##                                   Male                 823  772
+## Stock_Funds_Risk Neutral          Female               430  449
+##                                   Male                1522 2268
+## Stock_Funds_Risk Tolerant         Female                80  153
+##                                   Male                 947 1207
+## Stocks_Risk Averse                Female               164  341
+##                                   Male                 499 1096
+## Stocks_Risk Neutral               Female               258  621
+##                                   Male                1028 2762
+## Stocks_Risk Tolerant              Female                90  143
+##                                   Male                 400 1754
+## Treasury_Bond_Funds_Risk Averse   Female               459   46
+##                                   Male                1457  138
+## Treasury_Bond_Funds_Risk Neutral  Female               840   39
+##                                   Male                3431  359
+## Treasury_Bond_Funds_Risk Tolerant Female               220   13
+##                                   Male                1972  182
+\end{verbatim}
+
+\hypertarget{mantelhaen-test}{%
+\subsubsection{Mantelhaen Test}\label{mantelhaen-test}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mantelhaen.test}\NormalTok{(dt_all)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Cochran-Mantel-Haenszel test
+## 
+## data:  dt_all
+## Cochran-Mantel-Haenszel M^2 = 667.77, df = 11, p-value < 2.2e-16
+\end{verbatim}
+
+\hypertarget{findings}{%
+\subsubsection{Findings}\label{findings}}
+
+It is statistically significant than men are more likely to invest than
+women.
+
+\hypertarget{stocks}{%
+\subsection{Stocks}\label{stocks}}
+
+Next, I analyze just for stock ownership.
+
+\hypertarget{create-tabel}{%
+\subsubsection{Create Tabel}\label{create-tabel}}
+
+I filter the original data table, ``dt'' for only stocks.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dt_s <-}\StringTok{ }\NormalTok{dt }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(Asset}\OperatorTok{==}\StringTok{"Stocks"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+I condense the data because I no longer need the ``Percentage''
+variable.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dt_stocks <-}\StringTok{ }\KeywordTok{xtabs}\NormalTok{(Number_of_Responses }\OperatorTok{~}\StringTok{ }\NormalTok{Risk_Aversion}\OperatorTok{+}\NormalTok{Sex}\OperatorTok{+}\NormalTok{Owns, }\DataTypeTok{data =}\NormalTok{ dt_s)}
+\end{Highlighting}
+\end{Shaded}
+
+This is what the data looks like.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ftable}\NormalTok{(dt_stocks)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                      Owns Does Not Own Owns
+## Risk_Aversion Sex                          
+## Risk Averse   Female               164  341
+##               Male                 499 1096
+## Risk Neutral  Female               258  621
+##               Male                1028 2762
+## Risk Tolerant Female                90  143
+##               Male                 400 1754
+\end{verbatim}
+
+\hypertarget{mantelhaen-test-1}{%
+\subsubsection{Mantelhaen Test}\label{mantelhaen-test-1}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mantelhaen.test}\NormalTok{(dt_stocks)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Cochran-Mantel-Haenszel test
+## 
+## data:  dt_stocks
+## Cochran-Mantel-Haenszel M^2 = 156.66, df = 2, p-value < 2.2e-16
+\end{verbatim}
+
+\hypertarget{findings-1}{%
+\subsubsection{Findings}\label{findings-1}}
+
+It is a statistically significant finding that men are more likely to
+invest in stocks than women.
+
+\hypertarget{stock-funds}{%
+\subsection{Stock Funds}\label{stock-funds}}
+
+Next, I analyze for stock funds.
+
+\hypertarget{create-table-1}{%
+\subsubsection{Create Table}\label{create-table-1}}
+
+I filter the original data table, ``dt'' for only stock funds.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dt_sf <-}\StringTok{ }\NormalTok{dt }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(Asset}\OperatorTok{==}\StringTok{"Stock_Funds"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+I condense the data because I no longer need the ``Percentage''
+variable.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dt_stock_funds <-}\StringTok{ }\KeywordTok{xtabs}\NormalTok{(Number_of_Responses }\OperatorTok{~}\StringTok{ }\NormalTok{Risk_Aversion}\OperatorTok{+}\NormalTok{Sex}\OperatorTok{+}\NormalTok{Owns, }\DataTypeTok{data =}\NormalTok{ dt_sf)}
+\end{Highlighting}
+\end{Shaded}
+
+This is what the data looks like.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ftable}\NormalTok{(dt_stock_funds)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                      Owns Does Not Own Owns
+## Risk_Aversion Sex                          
+## Risk Averse   Female               266  239
+##               Male                 823  772
+## Risk Neutral  Female               430  449
+##               Male                1522 2268
+## Risk Tolerant Female                80  153
+##               Male                 947 1207
+\end{verbatim}
+
+\hypertarget{mantelhaen-test-2}{%
+\subsubsection{Mantelhaen test}\label{mantelhaen-test-2}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mantelhaen.test}\NormalTok{(dt_stock_funds)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Cochran-Mantel-Haenszel test
+## 
+## data:  dt_stock_funds
+## Cochran-Mantel-Haenszel M^2 = 162.07, df = 2, p-value < 2.2e-16
+\end{verbatim}
+
+\hypertarget{findings-2}{%
+\subsubsection{Findings}\label{findings-2}}
+
+It is a statistically significant finding that men are more likely to
+invest in stock funds than women.
+
+\hypertarget{combination-funds}{%
+\subsection{Combination Funds}\label{combination-funds}}
+
+\hypertarget{create-table-2}{%
+\subsubsection{Create Table}\label{create-table-2}}
+
+I filter the original data table, ``dt'' for only combination funds.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dt_cf <-}\StringTok{ }\NormalTok{dt }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(Asset}\OperatorTok{==}\StringTok{"Combination_Funds"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+I condense the data because I no longer need the ``Percentage''
+variable.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dt_combination_funds <-}\StringTok{ }\KeywordTok{xtabs}\NormalTok{(Number_of_Responses }\OperatorTok{~}\StringTok{ }\NormalTok{Risk_Aversion}\OperatorTok{+}\NormalTok{Sex}\OperatorTok{+}\NormalTok{Owns, }\DataTypeTok{data =}\NormalTok{ dt_cf)}
+\end{Highlighting}
+\end{Shaded}
+
+This is what the data looks like.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ftable}\NormalTok{(dt_combination_funds)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                      Owns Does Not Own Owns
+## Risk_Aversion Sex                          
+## Risk Averse   Female               471   34
+##               Male                1490  105
+## Risk Neutral  Female               826   53
+##               Male                3449  341
+## Risk Tolerant Female               218   15
+##               Male                1977  177
+\end{verbatim}
+
+\#\#\#Mantelhaen test
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mantelhaen.test}\NormalTok{(dt_combination_funds)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Cochran-Mantel-Haenszel test
+## 
+## data:  dt_combination_funds
+## Cochran-Mantel-Haenszel M^2 = 164.81, df = 2, p-value < 2.2e-16
+\end{verbatim}
+
+\hypertarget{findings-3}{%
+\subsubsection{Findings}\label{findings-3}}
+
+It is a statistically significant finding that men are more likely to
+invest in combination funds than women.
+
+\hypertarget{treasury-bond-funds}{%
+\subsection{Treasury Bond Funds}\label{treasury-bond-funds}}
+
+\hypertarget{create-table-3}{%
+\subsubsection{Create Table}\label{create-table-3}}
+
+I filter the original data table, ``dt'' for only treasury bond funds.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dt_tbf <-}\StringTok{ }\NormalTok{dt }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(Asset}\OperatorTok{==}\StringTok{"Treasury_Bond_Funds"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+I condense the data because I no longer need the ``Percentage''
+variable.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dt_treasury_bond_funds <-}\StringTok{ }\KeywordTok{xtabs}\NormalTok{(Number_of_Responses }\OperatorTok{~}\StringTok{ }\NormalTok{Risk_Aversion}\OperatorTok{+}\NormalTok{Sex}\OperatorTok{+}\NormalTok{Owns, }\DataTypeTok{data =}\NormalTok{ dt_tbf)}
+\end{Highlighting}
+\end{Shaded}
+
+This is what the data looks like.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ftable}\NormalTok{(dt_treasury_bond_funds)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                      Owns Does Not Own Owns
+## Risk_Aversion Sex                          
+## Risk Averse   Female               459   46
+##               Male                1457  138
+## Risk Neutral  Female               840   39
+##               Male                3431  359
+## Risk Tolerant Female               220   13
+##               Male                1972  182
+\end{verbatim}
+
+\#\#\#Mantelhaen Test
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mantelhaen.test}\NormalTok{(dt_treasury_bond_funds)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Cochran-Mantel-Haenszel test
+## 
+## data:  dt_treasury_bond_funds
+## Cochran-Mantel-Haenszel M^2 = 166.66, df = 2, p-value < 2.2e-16
+\end{verbatim}
+
+\hypertarget{findings-4}{%
+\subsubsection{Findings}\label{findings-4}}
+
+It is a statistically significant finding that men are more likely to
+invest in treasury bond funds than women.
+
+\hypertarget{conclusion}{%
+\section{Conclusion}\label{conclusion}}
+
+Through the Cochran-Mantel-Haenszel tests, we can see that in this data
+set, men are more likely to invest than women overall and for each asset
+class. The visualizations show that there is a greater share of women
+who are risk averse and risk neutral than men, and thus there are a
+greater share of men who are risk tolerant. There are a few examples of
+risk tolerant investors having a bigger portion of their portfolios in
+risky assets like stocks and stock funds, as well as risk averse
+investors having a bigger portion of their portfolios in risk averse
+assets like treasury bond funds. However, for the most part,
+self-reported risk aversion doesn't seem to have a big impact on
+portfolio makeup.
+
+There is an important caveat to this analysis, however. Though stocks
+generally are the riskiest asset, there is a wide variety of risk levels
+for different types of stocks. For example, an investor could own a
+share of a Blue Chip stock that is not volatile and is known for having
+consistent and reliable growth -- which would make it not very risky.
+Another investor could own a stock fund where the underlying stocks in
+the fund are very volatile -- making it very risky. So in this example,
+the stock fund is actually riskier than the stock. Unfortunately, there
+is no way to control for this using this data because the Survey of
+Consumer Finances does not ask specific questions about the risk level
+of the assets they own.
+
+\end{document}

@@ -1,0 +1,143 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+#Load in Packages
+library(dplyr)
+library(foreign)
+library(readr)
+library(readstata13)
+library(ggplot2)
+library(tidyverse)
+library(devtools)
+library(ggpubr)
+library(grid)
+library(ggalt)
+library(unikn)
+library(ggthemes)
+library(gridExtra)
+library(ggrepel)
+library(forcats)
+library(scales)
+library(magrittr)
+library(magrittr)
+library(qwraps2)
+library(wesanderson)
+library(arsenal)
+library(knitr)
+library(feather)
+library(useful)
+library(magrittr)
+library(patchwork)
+```
+
+```{r}
+## Import Data - STATA file of SCF 2016, downloaded from Federal Reserve Bank of NY website
+#scf_data <- read.dta13('../data/scfp2016s/p16i6.dta')
+#write_feather(scf_data, '../data/scf_data.ftr')
+```
+
+```{r}
+#Import Data
+scf_data <- read_feather('../data/scf_data.ftr')
+```
+
+```{r}
+## Select Columns I am Using for the Analysis and Rename
+scf_data %<>%
+  select("Sex" = "X8000", 
+         "Financial_Risk_Willingness" = "X7557", 
+         "Income_from_Wages" = "X5702", 
+         "Owns_Treasury_Bond_Funds" = "X3825", 
+         "Owns_Stocks" = "X3913", 
+         "Owns_Stock_Funds" = "X3821", 
+         "Owns_Combination_Funds" = "X3829", 
+         "TMV_Treasury_Bond_Funds" = "X3826", 
+         "TMV_Stocks" = "X3915", 
+         "TMV_Stock_Funds" = "X3822", 
+         "TMV_Combination_Funds" = "X3830")
+```
+
+```{r}
+## Create New Variables - Percentage of Respondent's Portfolios of Each Asset
+scf_data %<>%
+  mutate(TMV_Investments = TMV_Treasury_Bond_Funds + TMV_Stocks + TMV_Stock_Funds + TMV_Combination_Funds,
+         Percent_Treasury_Bond_Funds = TMV_Treasury_Bond_Funds / TMV_Investments * 100,
+         Percent_Combination_Funds = TMV_Combination_Funds / TMV_Investments * 100,
+         Percent_Stock_Funds = TMV_Stock_Funds / TMV_Investments * 100,
+         Percent_Stocks = TMV_Stocks / TMV_Investments * 100)
+```
+
+
+```{r}
+#Creates Income Bracket Tab, based upon 2016 Tax Brackets
+scf_data$Income_Bracket <- cut(scf_data$Income_from_Wages, 
+                               breaks = c(-Inf, 9275, 37650, 91150, 190150, 413350, 415050, Inf), 
+                               labels = c("$0 - $9,274", "$9,275 - $37,649", "$37,650 - $91,149", "$91,150 - $190,149", "$190,150 - $413,349", "$413,350 - $415,049", "$415,050 or More"))
+
+#scf_data$Income_Bracket <- as.factor(scf_data$Income_Bracket)
+#scf_data$Income_Bracket <- ordered(scf_data$Income_Bracket, levels = c("$0 - $9,274", "$9,275 - $37,649", "$37,650 - $91,149", "$91,150 - $190,149", "$190,150 - $413,349", "$413,350 - $415,049", "$415,050 or More"))
+
+
+scf_data$Risk_Aversion <- cut(scf_data$Financial_Risk_Willingness,
+                                                   breaks = c(-Inf, 2, 4, 7, 9, Inf),
+                                                   labels = c("Very Risk Averse", "Somewhat Risk Averse", "Risk Neutral", "Somewhat Risk Tolerant", "Very Risk Tolerant"))
+```
+
+```{r}
+#Recode Categorical variables
+
+scf_data$Sex = dplyr::recode_factor(as.character(scf_data$Sex), 
+                                                         "1"="Female",
+                                                         "5"="Male")
+
+scf_data$Owns_Treasury_Bond_Funds <- dplyr::recode(as.character(scf_data$Owns_Treasury_Bond_Funds),
+                                                     "1"="Yes",
+                                                     "5"="No",
+                                                     "0"="No",
+                                                     )
+
+scf_data$Owns_Stocks <- dplyr::recode(as.character(scf_data$Owns_Stocks),
+                                                      "1"="Yes",
+                                                      "5"="No")
+
+scf_data$Owns_Stock_Funds <- dplyr::recode(as.character(scf_data$Owns_Stock_Funds),
+                                                      "1"="Yes",
+                                                      "5"="No",
+                                                      "0"="No",
+                                                      )
+
+scf_data$Owns_Combination_Funds <- dplyr::recode(as.character(scf_data$Owns_Combination_Funds),
+                                                      "1"="Yes",
+                                                      "5"="No",
+                                                      "0"="No",
+                                                      )
+
+```
+
+
+```{r}
+#Filters only for those with Investments
+scf_data_cleaned <- scf_data %>%
+  filter(TMV_Investments>0)
+```
+
+
+
+```{r}
+#save cleaned data as csv
+write.csv(scf_data_filtered, "scf_cleaned_data.csv")
+```
+
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.

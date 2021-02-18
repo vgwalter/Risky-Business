@@ -1,0 +1,79 @@
+"","Sex","Investment_Type","Risk_Aversion","Owns","Number_of_Responses","Percentage"
+"1","Female","Combination_Funds","Very Risk Averse","No",162,92.5714285714286
+"2","Female","Combination_Funds","Very Risk Averse","Yes",13,7.42857142857143
+"3","Female","Combination_Funds","Somewhat Risk Averse","No",309,93.6363636363636
+"4","Female","Combination_Funds","Somewhat Risk Averse","Yes",21,6.36363636363636
+"5","Female","Combination_Funds","Risk Neutral","No",826,93.9704209328783
+"6","Female","Combination_Funds","Risk Neutral","Yes",53,6.02957906712173
+"7","Female","Combination_Funds","Somewhat Risk Tolerant","No",171,91.9354838709677
+"8","Female","Combination_Funds","Somewhat Risk Tolerant","Yes",15,8.06451612903226
+"9","Female","Combination_Funds","Very Risk Tolerant","No",47,100
+"10","Female","Stock_Funds","Very Risk Averse","No",97,55.4285714285714
+"11","Female","Stock_Funds","Very Risk Averse","Yes",78,44.5714285714286
+"12","Female","Stock_Funds","Somewhat Risk Averse","No",169,51.2121212121212
+"13","Female","Stock_Funds","Somewhat Risk Averse","Yes",161,48.7878787878788
+"14","Female","Stock_Funds","Risk Neutral","No",430,48.9192263936291
+"15","Female","Stock_Funds","Risk Neutral","Yes",449,51.0807736063709
+"16","Female","Stock_Funds","Somewhat Risk Tolerant","No",65,34.9462365591398
+"17","Female","Stock_Funds","Somewhat Risk Tolerant","Yes",121,65.0537634408602
+"18","Female","Stock_Funds","Very Risk Tolerant","No",15,31.9148936170213
+"19","Female","Stock_Funds","Very Risk Tolerant","Yes",32,68.0851063829787
+"20","Female","Stocks","Very Risk Averse","No",60,34.2857142857143
+"21","Female","Stocks","Very Risk Averse","Yes",115,65.7142857142857
+"22","Female","Stocks","Somewhat Risk Averse","No",104,31.5151515151515
+"23","Female","Stocks","Somewhat Risk Averse","Yes",226,68.4848484848485
+"24","Female","Stocks","Risk Neutral","No",258,29.3515358361775
+"25","Female","Stocks","Risk Neutral","Yes",621,70.6484641638225
+"26","Female","Stocks","Somewhat Risk Tolerant","No",63,33.8709677419355
+"27","Female","Stocks","Somewhat Risk Tolerant","Yes",123,66.1290322580645
+"28","Female","Stocks","Very Risk Tolerant","No",27,57.4468085106383
+"29","Female","Stocks","Very Risk Tolerant","Yes",20,42.5531914893617
+"30","Female","Treasury_Bond_Funds","Very Risk Averse","No",157,89.7142857142857
+"31","Female","Treasury_Bond_Funds","Very Risk Averse","Yes",18,10.2857142857143
+"32","Female","Treasury_Bond_Funds","Somewhat Risk Averse","No",302,91.5151515151515
+"33","Female","Treasury_Bond_Funds","Somewhat Risk Averse","Yes",28,8.48484848484849
+"34","Female","Treasury_Bond_Funds","Risk Neutral","No",840,95.5631399317406
+"35","Female","Treasury_Bond_Funds","Risk Neutral","Yes",39,4.43686006825939
+"36","Female","Treasury_Bond_Funds","Somewhat Risk Tolerant","No",173,93.010752688172
+"37","Female","Treasury_Bond_Funds","Somewhat Risk Tolerant","Yes",13,6.98924731182796
+"38","Female","Treasury_Bond_Funds","Very Risk Tolerant","No",47,100
+"39","Male","Combination_Funds","Very Risk Averse","No",530,96.8921389396709
+"40","Male","Combination_Funds","Very Risk Averse","Yes",17,3.10786106032907
+"41","Male","Combination_Funds","Somewhat Risk Averse","No",960,91.6030534351145
+"42","Male","Combination_Funds","Somewhat Risk Averse","Yes",88,8.3969465648855
+"43","Male","Combination_Funds","Risk Neutral","No",3449,91.0026385224274
+"44","Male","Combination_Funds","Risk Neutral","Yes",341,8.99736147757256
+"45","Male","Combination_Funds","Somewhat Risk Tolerant","No",1355,92.2396187882914
+"46","Male","Combination_Funds","Somewhat Risk Tolerant","Yes",114,7.76038121170865
+"47","Male","Combination_Funds","Very Risk Tolerant","No",622,90.8029197080292
+"48","Male","Combination_Funds","Very Risk Tolerant","Yes",63,9.1970802919708
+"49","Male","Stock_Funds","Very Risk Averse","No",327,59.7806215722121
+"50","Male","Stock_Funds","Very Risk Averse","Yes",220,40.2193784277879
+"51","Male","Stock_Funds","Somewhat Risk Averse","No",496,47.3282442748092
+"52","Male","Stock_Funds","Somewhat Risk Averse","Yes",552,52.6717557251908
+"53","Male","Stock_Funds","Risk Neutral","No",1522,40.1583113456464
+"54","Male","Stock_Funds","Risk Neutral","Yes",2268,59.8416886543536
+"55","Male","Stock_Funds","Somewhat Risk Tolerant","No",646,43.9754935330157
+"56","Male","Stock_Funds","Somewhat Risk Tolerant","Yes",823,56.0245064669843
+"57","Male","Stock_Funds","Very Risk Tolerant","No",301,43.9416058394161
+"58","Male","Stock_Funds","Very Risk Tolerant","Yes",384,56.0583941605839
+"59","Male","Stocks","Very Risk Averse","No",168,30.7129798903108
+"60","Male","Stocks","Very Risk Averse","Yes",379,69.2870201096892
+"61","Male","Stocks","Somewhat Risk Averse","No",331,31.5839694656489
+"62","Male","Stocks","Somewhat Risk Averse","Yes",717,68.4160305343512
+"63","Male","Stocks","Risk Neutral","No",1028,27.1240105540897
+"64","Male","Stocks","Risk Neutral","Yes",2762,72.8759894459103
+"65","Male","Stocks","Somewhat Risk Tolerant","No",290,19.7413206262764
+"66","Male","Stocks","Somewhat Risk Tolerant","Yes",1179,80.2586793737236
+"67","Male","Stocks","Very Risk Tolerant","No",110,16.0583941605839
+"68","Male","Stocks","Very Risk Tolerant","Yes",575,83.9416058394161
+"69","Male","Treasury_Bond_Funds","Very Risk Averse","No",514,93.9670932358318
+"70","Male","Treasury_Bond_Funds","Very Risk Averse","Yes",33,6.03290676416819
+"71","Male","Treasury_Bond_Funds","Somewhat Risk Averse","No",943,89.9809160305344
+"72","Male","Treasury_Bond_Funds","Somewhat Risk Averse","Yes",105,10.0190839694656
+"73","Male","Treasury_Bond_Funds","Risk Neutral","No",3431,90.5277044854881
+"74","Male","Treasury_Bond_Funds","Risk Neutral","Yes",359,9.47229551451187
+"75","Male","Treasury_Bond_Funds","Somewhat Risk Tolerant","No",1354,92.1715452688904
+"76","Male","Treasury_Bond_Funds","Somewhat Risk Tolerant","Yes",115,7.8284547311096
+"77","Male","Treasury_Bond_Funds","Very Risk Tolerant","No",618,90.2189781021898
+"78","Male","Treasury_Bond_Funds","Very Risk Tolerant","Yes",67,9.78102189781022

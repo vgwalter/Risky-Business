@@ -1,0 +1,79 @@
+"","Financial_Decision_Maker","Investment_Type","Owns","Financial_Risk_Willingness_grouped","Number_of_Responses","Percentage"
+"1","Female","Combination_Funds","No","Very Unwilling",162,92.5714285714286
+"2","Female","Combination_Funds","No","Somewhat Unwilling",309,93.6363636363636
+"3","Female","Combination_Funds","No","Indifferent",826,93.9704209328783
+"4","Female","Combination_Funds","No","Somewhat Willing",171,91.9354838709677
+"5","Female","Combination_Funds","No","Very Willing",47,100
+"6","Female","Combination_Funds","Yes","Very Unwilling",13,7.42857142857143
+"7","Female","Combination_Funds","Yes","Somewhat Unwilling",21,6.36363636363636
+"8","Female","Combination_Funds","Yes","Indifferent",53,6.02957906712173
+"9","Female","Combination_Funds","Yes","Somewhat Willing",15,8.06451612903226
+"10","Female","Stock_Funds","No","Very Unwilling",97,55.4285714285714
+"11","Female","Stock_Funds","No","Somewhat Unwilling",169,51.2121212121212
+"12","Female","Stock_Funds","No","Indifferent",430,48.9192263936291
+"13","Female","Stock_Funds","No","Somewhat Willing",65,34.9462365591398
+"14","Female","Stock_Funds","No","Very Willing",15,31.9148936170213
+"15","Female","Stock_Funds","Yes","Very Unwilling",78,44.5714285714286
+"16","Female","Stock_Funds","Yes","Somewhat Unwilling",161,48.7878787878788
+"17","Female","Stock_Funds","Yes","Indifferent",449,51.0807736063709
+"18","Female","Stock_Funds","Yes","Somewhat Willing",121,65.0537634408602
+"19","Female","Stock_Funds","Yes","Very Willing",32,68.0851063829787
+"20","Female","Stocks","No","Very Unwilling",60,34.2857142857143
+"21","Female","Stocks","No","Somewhat Unwilling",104,31.5151515151515
+"22","Female","Stocks","No","Indifferent",258,29.3515358361775
+"23","Female","Stocks","No","Somewhat Willing",63,33.8709677419355
+"24","Female","Stocks","No","Very Willing",27,57.4468085106383
+"25","Female","Stocks","Yes","Very Unwilling",115,65.7142857142857
+"26","Female","Stocks","Yes","Somewhat Unwilling",226,68.4848484848485
+"27","Female","Stocks","Yes","Indifferent",621,70.6484641638225
+"28","Female","Stocks","Yes","Somewhat Willing",123,66.1290322580645
+"29","Female","Stocks","Yes","Very Willing",20,42.5531914893617
+"30","Female","Treasury_Bond_Funds","No","Very Unwilling",157,89.7142857142857
+"31","Female","Treasury_Bond_Funds","No","Somewhat Unwilling",302,91.5151515151515
+"32","Female","Treasury_Bond_Funds","No","Indifferent",840,95.5631399317406
+"33","Female","Treasury_Bond_Funds","No","Somewhat Willing",173,93.010752688172
+"34","Female","Treasury_Bond_Funds","No","Very Willing",47,100
+"35","Female","Treasury_Bond_Funds","Yes","Very Unwilling",18,10.2857142857143
+"36","Female","Treasury_Bond_Funds","Yes","Somewhat Unwilling",28,8.48484848484849
+"37","Female","Treasury_Bond_Funds","Yes","Indifferent",39,4.43686006825939
+"38","Female","Treasury_Bond_Funds","Yes","Somewhat Willing",13,6.98924731182796
+"39","Male","Combination_Funds","No","Very Unwilling",530,96.8921389396709
+"40","Male","Combination_Funds","No","Somewhat Unwilling",960,91.6030534351145
+"41","Male","Combination_Funds","No","Indifferent",3449,91.0026385224274
+"42","Male","Combination_Funds","No","Somewhat Willing",1355,92.2396187882914
+"43","Male","Combination_Funds","No","Very Willing",622,90.8029197080292
+"44","Male","Combination_Funds","Yes","Very Unwilling",17,3.10786106032907
+"45","Male","Combination_Funds","Yes","Somewhat Unwilling",88,8.3969465648855
+"46","Male","Combination_Funds","Yes","Indifferent",341,8.99736147757256
+"47","Male","Combination_Funds","Yes","Somewhat Willing",114,7.76038121170865
+"48","Male","Combination_Funds","Yes","Very Willing",63,9.1970802919708
+"49","Male","Stock_Funds","No","Very Unwilling",327,59.7806215722121
+"50","Male","Stock_Funds","No","Somewhat Unwilling",496,47.3282442748092
+"51","Male","Stock_Funds","No","Indifferent",1522,40.1583113456464
+"52","Male","Stock_Funds","No","Somewhat Willing",646,43.9754935330157
+"53","Male","Stock_Funds","No","Very Willing",301,43.9416058394161
+"54","Male","Stock_Funds","Yes","Very Unwilling",220,40.2193784277879
+"55","Male","Stock_Funds","Yes","Somewhat Unwilling",552,52.6717557251908
+"56","Male","Stock_Funds","Yes","Indifferent",2268,59.8416886543536
+"57","Male","Stock_Funds","Yes","Somewhat Willing",823,56.0245064669843
+"58","Male","Stock_Funds","Yes","Very Willing",384,56.0583941605839
+"59","Male","Stocks","No","Very Unwilling",168,30.7129798903108
+"60","Male","Stocks","No","Somewhat Unwilling",331,31.5839694656489
+"61","Male","Stocks","No","Indifferent",1028,27.1240105540897
+"62","Male","Stocks","No","Somewhat Willing",290,19.7413206262764
+"63","Male","Stocks","No","Very Willing",110,16.0583941605839
+"64","Male","Stocks","Yes","Very Unwilling",379,69.2870201096892
+"65","Male","Stocks","Yes","Somewhat Unwilling",717,68.4160305343512
+"66","Male","Stocks","Yes","Indifferent",2762,72.8759894459103
+"67","Male","Stocks","Yes","Somewhat Willing",1179,80.2586793737236
+"68","Male","Stocks","Yes","Very Willing",575,83.9416058394161
+"69","Male","Treasury_Bond_Funds","No","Very Unwilling",514,93.9670932358318
+"70","Male","Treasury_Bond_Funds","No","Somewhat Unwilling",943,89.9809160305344
+"71","Male","Treasury_Bond_Funds","No","Indifferent",3431,90.5277044854881
+"72","Male","Treasury_Bond_Funds","No","Somewhat Willing",1354,92.1715452688904
+"73","Male","Treasury_Bond_Funds","No","Very Willing",618,90.2189781021898
+"74","Male","Treasury_Bond_Funds","Yes","Very Unwilling",33,6.03290676416819
+"75","Male","Treasury_Bond_Funds","Yes","Somewhat Unwilling",105,10.0190839694656
+"76","Male","Treasury_Bond_Funds","Yes","Indifferent",359,9.47229551451187
+"77","Male","Treasury_Bond_Funds","Yes","Somewhat Willing",115,7.8284547311096
+"78","Male","Treasury_Bond_Funds","Yes","Very Willing",67,9.78102189781022

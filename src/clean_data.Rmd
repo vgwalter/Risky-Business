@@ -1,0 +1,603 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+library(dplyr)
+library(foreign)
+install.packages("readr")
+library(readr)
+```
+
+
+```{r}
+library(readstata13)
+library(ggplot2)
+library(tidyverse)
+```
+
+```{r}
+#install.packages("ggalt")
+#install.packages("unikn")
+```
+
+```{r}
+#install.packages("ggpubr")
+```
+
+```{r}
+library(devtools)
+library(ggpubr)
+```
+
+
+```{r}
+library(grid)
+```
+
+
+```{r}
+library(ggalt)
+```
+
+```{r}
+library(unikn)
+```
+
+
+```{r}
+library(ggthemes)
+```
+
+```{r}
+#install.packages('gridExtra')
+```
+
+```{r}
+library(gridExtra)
+```
+
+
+```{r}
+library(ggrepel)
+library(forcats)
+library(scales)
+```
+
+
+```{r}
+library(magrittr)
+library(magrittr)
+library(qwraps2)
+library(wesanderson)
+library(arsenal)
+library(knitr)
+```
+
+
+```{r}
+library(feather)
+```
+
+
+```{r}
+library(useful)
+library(magrittr)
+```
+
+
+
+```{r}
+## Import Data - STATA file of SCF 2016, downloaded from Federal Reserve Bank of NY website
+## scf_data <- read.dta13('../data/scfp2016s/p16i6.dta')
+## write_feather(scf_data, '../data/scf_data.ftr')
+```
+
+```{r}
+## Resave file as feather format
+scf_data <- read_feather('../data/scf_data.ftr')
+```
+
+
+
+```{r}
+## Select Columns I am Using for the Analysis and Rename
+scf_data %<>%
+  select("Financial_Decision_Maker" = "X8000", 
+         "Respondent_Sex" = "X8021", 
+         "FDM_Race" = "X6809", 
+         "Respondent_Age" = "X8022", 
+         "Respondent_Marital_Status" = "X7018", 
+         "FDM_Education" = "X5931", 
+         "FDM_Job_Status" = "X6670",
+         "Spouse_Job_Status" = "X6678",
+         "Respondent_Dependents" = "X5910", 
+         "Respondent_Children_Under_18" = "X5912", 
+         "Spouse_Sex" = "X103", 
+         "Spouse_Education" = "X6111", 
+         "Financial_Knowledge" = "X7556", 
+         "Financial_Risk_Willingness" = "X7557", 
+         "Investment_Information_Source" = "X7112",
+         "Income_from_Wages" = "X5702", 
+         "Owns_Treasury_Bond_Funds" = "X3825", 
+         "Owns_Stocks" = "X3913", 
+         "Owns_Stock_Funds" = "X3821", 
+         "Owns_Combination_Funds" = "X3829", 
+         "TMV_Treasury_Bond_Funds" = "X3826", 
+         "TMV_Stocks" = "X3915", 
+         "TMV_Stock_Funds" = "X3822", 
+         "TMV_Combination_Funds" = "X3830")
+
+head(scf_data)
+```
+
+
+```{r}
+## Create New Variables 
+scf_data %<>%
+  mutate(TMV_Investments = TMV_Treasury_Bond_Funds + TMV_Stocks + TMV_Stock_Funds + TMV_Combination_Funds,
+         Percent_Treasury_Bond_Funds = TMV_Treasury_Bond_Funds / TMV_Investments * 100,
+         Percent_Combination_Funds = TMV_Combination_Funds / TMV_Investments * 100,
+         Percent_Stock_Funds = TMV_Stock_Funds / TMV_Investments * 100,
+         Percent_Stocks = TMV_Stocks / TMV_Investments * 100,
+         Has_Investments = TMV_Investments>0)
+
+#Creates Income Bracket Tab, based upon 2016 Tax Brackets
+scf_data$Income_Bracket <- cut(scf_data$Income_from_Wages, 
+                               breaks = c(-Inf, 9275, 37650, 91150, 190150, 413350, 415050, Inf), 
+                               labels = c("$0 - $9,274", "$9,275 - $37,649", "$37,650 - $91,149", "$91,150 - $190,149", "$190,150 - $413,349", "$413,350 - $415,049", "$415,050 or More"))
+
+scf_data$Income_Bracket <- as.factor(scf_data$Income_Bracket)
+#scf_data$Income_Bracket <- ordered(scf_data$Income_Bracket, levels = c("$0 - $9,274", "$9,275 - $37,649", "$37,650 - $91,149", "$91,150 - $190,149", "$190,150 - $413,349", "$413,350 - $415,049", "$415,050 or More"))
+
+# help ?ordered
+
+# Creates Generations variable, Generations from Pew Research 
+scf_data$Generations <- cut(scf_data$Respondent_Age,
+                      breaks = c(-Inf, 20, 36, 52, 71, 89, Inf),
+                      labels = c("Gen Z [4-19]", "Millenials [20-35]", "Generation X [36-51]", "Baby Boomers [52-70]", "Silent Generation [71-88]", "Other [89+]"))
+
+scf_data$Financial_Risk_Willingness_grouped <- cut(scf_data$Financial_Risk_Willingness,
+                                                   breaks = c(-Inf, 4, 7, Inf),
+                                                   labels = c("Unwilling to Take Financial Risk", "Indifferent to Financial Risk", "Willing to Take Financial Risk"))
+```
+
+
+
+```{r}
+#Recode Categorical variables
+
+scf_data$Respondent_Sex<- dplyr::recode_factor(as.character(scf_data$Respondent_Sex), 
+                                                        "1"="Male", 
+                                                        "2"="Female")
+
+
+scf_data$FDM_Race <- dplyr::recode_factor(as.character(scf_data$FDM_Race), 
+                                                        "1"="White", 
+                                                        "2"="Black", 
+                                                        "3"="Latinx", 
+                                                        "-7"="Asian, American Indian, Pacific Islander")
+
+
+scf_data$Respondent_Marital_Status <- dplyr::recode_factor(as.character(scf_data$Respondent_Marital_Status), 
+                                                          "1"="Married", 
+                                                          "3"="Separated", 
+                                                          "4"="Divorced", 
+                                                          "5"="Widowed", 
+                                                          "6"="Never Married",
+                                                          "0"="No Spouse or Partner")
+#Education of the Financial Decision Maker
+scf_data$FDM_Education <- dplyr::recode_factor(as.character(scf_data$FDM_Education), 
+                                                      "-1"="Less than High School", 
+                                                      "0"="Less than High School", 
+                                                      "1"="Less than High School", 
+                                                      "2"="Less than High School", 
+                                                      "3"="Less than High School", 
+                                                      "4"="Less than High School",  
+                                                      "5"="Less than High School", 
+                                                      "6"="Less than High School", 
+                                                      "7"="Less than High School", 
+                                                      "8"="High School Graduate", 
+                                                      "9"="Some College, No Degree", 
+                                                      "10"="Associate's Degree", 
+                                                      "11"="Associate's Degree", 
+                                                      "12"="Bachelor's Degree", 
+                                                      "13"="Graduate Degree",
+                                                      "14"="Graduate Degree", 
+                                                      "15"="Graduate Degree", .ordered = TRUE)
+
+scf_data$Financial_Decision_Maker = dplyr::recode_factor(as.character(scf_data$Financial_Decision_Maker), 
+                                                         "1"="Female",
+                                                         "5"="Male")
+scf_data$Spouse_Sex = dplyr::recode_factor(as.character(scf_data$Spouse_Sex), 
+                                                          "1"="Male",
+                                                          "2"="Female",
+                                                          "0"="Other")
+scf_data$FDM_Job_Status = dplyr::recode_factor(as.character(scf_data$FDM_Job_Status),
+                                                          "1"="Working",
+                                                          "2"="Unemployed",
+                                                          "3"="Unemployed",
+                                                          "4"="Student",
+                                                          "5"="Homemaker",
+                                                          "6"="Disabled",
+                                                          "7"="Retired",
+                                                          "8"="Sick, Maternity, Vacation, or Other Leave of Absence",
+                                                          "10"="Working",
+                                                          "11"="Sick, Maternity, Vacation, or Other Leave of Absence",
+                                                          "13"="Sick, Maternity, Vacation, or Other Leave of Aebsence",
+                                                          "15"="Sick, Maternity, Vacation, or Other Leave of Absence",
+                                                          "16"="Unemployed")
+
+
+scf_data$Spouse_Education <- dplyr::recode_factor(as.character(scf_data$Spouse_Education), 
+                                                      "-1"="Less than High School", 
+                                                      "0"="Less than High School", 
+                                                      "1"="Less than High School", 
+                                                      "2"="Less than High School", 
+                                                      "3"="Less than High School", 
+                                                      "4"="Less than High School",  
+                                                      "5"="Less than High School", 
+                                                      "6"="Less than High School", 
+                                                      "7"="Less than High School", 
+                                                      "8"="High School Graduate", 
+                                                      "9"="Some College, No Degree", 
+                                                      "10"="Associate's Degree", 
+                                                      "11"="Associate's Degree", 
+                                                      "12"="Bachelor's Degree", 
+                                                      "13"="Graduate Degree",
+                                                      "14"="Graduate Degree", 
+                                                      "15"="Graduate Degree", .ordered = TRUE)
+
+scf_data$Spouse_Job_Status = dplyr::recode_factor(as.character(scf_data$Spouse_Job_Status),
+                                                          "1"="Working",
+                                                          "2"="Unemployed",
+                                                          "3"="Unemployed",
+                                                          "4"="Student",
+                                                          "5"="Homemaker",
+                                                          "6"="Disabled",
+                                                          "7"="Retired",
+                                                          "8"="Sick, Maternity, Vacation, or Other Leave of Absence",
+                                                          "10"="Volunteer Work",
+                                                          "11"="Sick, Maternity, Vacation, or Other Leave of Absence",
+                                                          "13"="Sick, Maternity, Vacation, or Other Leave of Aebsence",
+                                                          "15"="Sick, Maternity, Vacation, or Other Leave of Absence",
+                                                          "16"="Unemployed",
+                                                          "0"="No Spouse or Partner")
+
+scf_data$Investment_Information_Source = dplyr::recode_factor(as.character(scf_data$Investment_Information_Source),
+                                                             "1"="Call Around",
+                                                             "2"="Magazines/Newspapers; books",
+                                                             "3"="Material in the Mail / Advertisements",
+                                                             "4"="Television/Radio",
+                                                             "5"="Internet/Online Service",
+                                                             "6"="Material in the Mail / Advertisements",
+                                                             "7"="Friend/Relative/Colleague", 
+                                                             "8"="Lawyer / Accountant", 
+                                                             "9"="Lawyer / Accountant", 
+                                                             "10"="Banker",
+                                                             "11"="Broker",
+                                                             "12"="Financial Planner",
+                                                             "13"="Self; Spouse/Partner",
+                                                             "14"="Other",
+                                                             "16"="Other", 
+                                                             "17"="Self; Spouse/Partner",
+                                                             "18"="Friend/Relative/Colleague",
+                                                             "21"="Self; Spouse/Partner",
+                                                             "24"="Other",
+                                                             "25"="Other")
+
+scf_data$Owns_Treasury_Bond_Funds <- dplyr::recode(as.character(scf_data$Owns_Treasury_Bond_Funds),
+                                                     "1"="Yes",
+                                                     "5"="No",
+                                                     "0"="No",
+                                                     )
+
+scf_data$Owns_Stocks <- dplyr::recode(as.character(scf_data$Owns_Stocks),
+                                                      "1"="Yes",
+                                                      "5"="No")
+
+scf_data$Owns_Stock_Funds <- dplyr::recode(as.character(scf_data$Owns_Stock_Funds),
+                                                      "1"="Yes",
+                                                      "5"="No",
+                                                      "0"="No",
+                                                      )
+
+scf_data$Owns_Combination_Funds <- dplyr::recode(as.character(scf_data$Owns_Combination_Funds),
+                                                      "1"="Yes",
+                                                      "5"="No",
+                                                      "0"="No",
+                                                      )
+scf_data$Financial_Risk_Willingness <- as.factor(scf_data$Financial_Risk_Willingness)
+
+scf_data$Financial_Knowledge <- as.factor(scf_data$Financial_Knowledge)
+```
+
+
+
+
+
+
+
+
+```{r}
+#Controls for Summary Statistics Tables
+my_controls <- tableby.control(
+  test = T,
+  total = T,
+  numeric.test = "kwt", cat.test = "chisq",
+  numeric.stats = c("meansd", "medianq1q3", "range", "Nmiss2"),
+  cat.stats = c("countpct", "Nmiss2"),
+  stats.labels = list(
+    meansd = "Mean (SD)",
+    medianq1q3 = "Median (Q1, Q3)",
+    range = "Min - Max",
+    Nmiss2 = "Missing"
+  )
+)
+```
+
+
+```{r}
+#Summary Statistics Table: Compares Respondents who don't have investments with those that do
+summary_unfiltered <- tableby(interaction(Has_Investments) ~ .,
+  data = scf_data,
+  control = my_controls
+)
+ 
+investment_populations_table <-summary(summary_unfiltered)
+investment_populations_table
+```
+
+```{r}
+#build Summary Statistics slide
+slide(border = NA)
+
+mark(labels = "Trends in the Summary Statistics", x = 0, y = .9, y_layout = "even", col_bg = 'light blue', cex = 2, new_plot = "none")
+uline(labels = "Households that Own Investments are more likely to be...", x = 0.15, y = .8, col_bg = 'white', cex = 1 )
+uline(labels = "White: 88.1% vs. 64.9%", x = 0, y = .7, col_bg = "light blue", cex = 1)
+uline(labels = "Married: 72.8% vs. 46.2%", x = 0, y = .6, col_bg = "light blue", cex = 1)
+uline(labels = "College Educated:", x = 0, y = .5, col_bg = "light blue", cex = 1)
+uline(labels = "Bachelor's Degree  36.0% vs. 18.7%", x = 0.05, y = .45, col_bg = "light blue", cex = 1)
+uline(labels = "Graduate Degree  37.6% vs. 11.8%", x = 0.05, y = .40, col_bg = "light blue", cex = 1)
+uline(labels = "Older:", x= 0, y = .30, col_bg = "light blue", cex =1)
+uline(labels = "Gen Z   0.2% vs. 0.8%", x = 0.05, y = .25, col_bg = "light blue", cex = 1)
+uline(labels = "Millenials   8.7% vs. 22.8%", x = 0.05, y = .20, col_bg = "light blue", cex =1)
+uline(labels = "Generation X   23.0% vs. 30.7%", x = 0.05, y = .15, col_bg = "light blue", cex =1)
+uline(labels = "Baby Boomers   49.9% vs. 35.4%", x = 0.05, y = .10, col_bg = "light blue", cex =1)
+uline(labels = "Silent Generation   17.1% vs. 9.9%", x = 0.05, y = .05, col_bg = "light blue", cex=1)
+uline(labels = "Base Investment Decisions off of", x = 0.5, y = 0.7, col_bg = "light blue", cex = 1)
+uline(labels = "A Financial Planner:  25.1% vs. 11.5%", x = 0.55, y = 0.65, col_bg = "light blue", cex = 1)
+uline(labels = "Working or Retired:", x = 0.50, y = 0.5, col_bg = "light blue", cex = 1)
+uline(labels = "Working  70.1% vs. 65.5%", x = 0.55, y = 0.45, col_bg = "light blue", cex = 1)
+uline(labels = "Retired  26.1% vs. 17.6%", x = 0.55, y = 0.40, col_bg = "light blue", cex = 1)
+uline(labels = "More Willing to Take Financial Risk:", x = 0.5, y = 0.3, col_bg = "light blue", cex = 1)
+uline(labels = "Somewhat Willing  15.5% vs. 8.5%", x = 0.55, y = 0.25, col_bg = "light blue", cex = 1)
+uline(labels = "Moderately Willing  19.1% vs. 9.0%", x = 0.55, y = 0.2, col_bg = "light blue", cex = 1)
+uline(labels = "Willing  13.8% vs. 6.7%", x = 0.55, y = 0.15, col_bg = "light blue", cex =1)
+uline(labels = "Very Willing  4.3% vs. 1.9%", x = 0.55, y = 0.1, col_bg = "light blue", cex = 1)
+uline(labels = "Extremely Willing  8.0% vs. 4.3%", x = 0.55, y = 0.05, col_bg = "light blue", cex = 1)
+```
+
+
+```{r}
+#Filters only for those with Investments
+scf_data_filtered <- scf_data %>%
+  filter(TMV_Investments>0)
+
+```
+
+```{r}
+summary_FDM <- tableby(interaction(Financial_Decision_Maker) ~ .,
+  data = scf_data_filtered,
+  control = my_controls
+)
+ 
+by_FDM_table <-summary(summary_FDM)
+by_FDM_table
+```
+
+```{r}
+#Build Female Financial Decision Maker Slide
+slide(border = NA)
+
+mark(labels = "Female Financial Decision Makers are...", x = 0, y = .9, y_layout = "even", col_bg = "light blue", cex = 2)
+uline(labels = "Less likely to Own Investments", x = 0, y = 0.70, col_bg = "light blue", cex = 1)
+uline(labels = "17.7% vs. 25.8%", x = 0.05, y = 0.65, col_bg = "light blue", cex = 1)
+uline(labels = "More Likely to be Younger", x = 0, y = 0.50, col_bg = "light blue", cex = 1)
+uline(labels = "Gen Z  0.0% vs. 0.3%", x = 0.05, y = 0.45, col_bg = "light blue", cex = 1)
+uline(labels = "Millenials  9.6% vs. 8.4%", x = 0.05, y = 0.40, col_bg = "light blue", cex = 1)
+uline(labels = "Generation X  29.3% vs. 21.7%", x = 0.05, y = 0.35, col_bg = "light blue", cex = 1)
+uline(labels = "Baby Boomers  46.6% vs. 50.6%", x = 0.05, y = 0.30, col_bg = "light blue", cex = 1)
+uline(labels = "Silent Generation  14.5% vs. 17.6%", x = 0.05, y = 0.25, col_bg = "light blue", cex = 1)
+uline(labels = "On Average, Receive Lower Income from Wages", x = 0, y = 0.1, col_bg = "light blue", cex = 1)
+uline(labels = "$212,184.49 vs. $397,021.48", x = 0.1, y = 0.05, col_bg = "light blue", cex = 1)
+uline(labels = "Self-Reported being Less Willing to take", x = 0.5, y = 0.7, col_bg = "light blue", cex = 1)
+uline(labels = "Financial Risks", x = 0.55, y = 0.65, col_bg = "light blue", cex = 1)
+uline(labels = "Not At All Willing  2.8% vs. 2.2%", x = 0.6, y = 0.6, col_bg = "light blue", cex = 1)
+uline(labels = "Very Unwilling  2.2% vs. 1.5%", x = 0.6, y = 0.55, col_bg = "light blue", cex = 1)
+uline(labels = "Unwilling  5.9% vs. 3.6%", x = 0.6, y = 0.5, col_bg = "light blue", cex = 1)
+uline(labels = "Moderately Unwilling  9.3% vs. 6.9%", x = 0.6, y = 0.45, col_bg = "light blue", cex = 1)
+uline(labels = "Somewhat Unwilling  11.1% vs. 7.2%", x = 0.6, y = 0.4, col_bg = "light blue", cex = 1)
+uline(labels = "Indifferent  20.1% vs. 15.5%", x = 0.6, y = 0.35, col_bg = "light blue", cex = 1)
+uline(labels = "Somewhat Willing  15.8% vs. 15.5%", x = 0.6, y = 0.3, col_bg = "light blue", cex = 1)
+uline(labels = "Moderately Willing  18.4% vs. 19.3%", x = 0.6, y = 0.25, col_bg = "light blue", cex = 1)
+uline(labels = "Willing  8.7% vs. 14.9%", x = 0.6, y = 0.2, col_bg = "light blue", cex = 1)
+uline(labels = "Very Willing  2.8% vs. 4.6%", x = 0.6, y = 0.15, col_bg = "light blue", cex = 1)
+uline(labels = "Extremely Willing  2.9% vs. 9.1%", x = 0.6, y = 0.1, col_bg = "light blue", cex = 1)
+```
+
+```{r}
+ggplot(scf_data_filtered, aes(x = Financial_Decision_Maker, y = log10(TMV_Investments), col = Financial_Risk_Willingness_grouped)) + geom_boxplot()
+```
+
+
+
+```{r}
+hist_generations <- scf_data_filtered %>%
+  ggplot(aes(x = Generations)) + geom_histogram(stat = 'count', fill = 'light blue') + facet_wrap(~Financial_Decision_Maker, nrow = 2) + theme_economist_white() + theme(axis.text.x = element_text(angle = 25)) + labs(title = "Households with Investments")
+
+hist_generations
+```
+
+```{r}
+#retired <- scf_data_filtered[scf_data_filtered$Income_from_Wages==0 & scf_data_filtered$TMV_Investments > 10 & scf_data_filtered$TMV_Investments < 1000000000, ]
+
+#new1 <- scf_data_filtered %>%
+#  ggplot(aes(x = log10(Income_from_Wages), y = log10(TMV_Investments), col=Generations)) + geom_point() +  geom_encircle(aes(x = log10(Income_from_Wages), y = log10(TMV_Investments)), data = retired, color = 'dark red', size = 3, expand = 0.005)
+
+#new1
+```
+
+
+
+```{r}
+ps <- ggplot(scf_data_filtered, aes(x = Financial_Decision_Maker, y = Percent_Stocks, col = Financial_Risk_Willingness_grouped)) + geom_boxplot() + theme(legend.title = element_blank()) + theme(legend.position = "top") +labs(x = "Stocks", y = "") +theme(axis.ticks = element_blank())
+
+# it seems that FFDM, women who self-report as the most risk averse have the highest mean percentage of Stocks (the riskiest asset) and as women self-report they are more tolerant of risk, the mean percentage of Stocks goes down
+```
+
+```{r}
+psf <- ggplot(scf_data_filtered, aes(x = Financial_Decision_Maker, y = Percent_Stock_Funds, col = Financial_Risk_Willingness_grouped)) + geom_boxplot() + theme(legend.title = element_blank()) +
+  #theme(legend.position = "none") +
+  labs(x = "Stock Funds", y = "") +theme(axis.text.y = element_blank()) +theme(axis.ticks = element_blank())
+```
+
+```{r}
+pcf <- ggplot(scf_data_filtered, aes(x = Financial_Decision_Maker, y = Percent_Combination_Funds, col = Financial_Risk_Willingness_grouped)) + geom_boxplot() + theme(legend.title = element_blank()) + 
+  #theme(legend.position = "none") +
+  labs(x = "Comb. Funds", y = "") +theme(axis.text.y = element_blank()) +theme(axis.ticks = element_blank())
+```
+
+```{r}
+ptbf <- ggplot(scf_data_filtered, aes(x = Financial_Decision_Maker, y = Percent_Treasury_Bond_Funds, col = Financial_Risk_Willingness_grouped)) + geom_boxplot()  + theme(legend.title = element_blank()) + 
+  #theme(legend.position = "none") +
+  labs(x = "Treasury Bond Funds", y = "") +theme(axis.text.y = element_blank()) +theme(axis.ticks = element_blank())
+
+```
+
+```{r}
+grid.arrange(ps, psf, pcf, ptbf, ncol = 4, top = textGrob("Boxplots of Each Asset as  Percentage of Respondents' Investment Portfolios",gp=gpar(fontsize=13,font=3)))
+```
+
+```{r}
+g_legend<-function(a.gplot){
+  tmp <- ggplot_gtable(ggplot_build(a.gplot))
+  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+  legend <- tmp$grobs[[leg]]
+  return(legend)}
+
+mylegend<-g_legend(ps)
+
+p3 <- grid.arrange(arrangeGrob(ps + theme(legend.position="none"),
+                         psf + theme(legend.position="none"),
+                         pcf + theme(legend.position="none"),
+                         ptbf + theme(legend.position="none"),
+                         ncol = 4),
+             mylegend, nrow=2,heights=c(10, 1))
+```
+
+```{r}
+ggarrange()
+```
+
+
+```{r}
+#scf_data_filtered %>% 
+ # filter(Owns_Stocks == "Yes") %>%
+  #count(Respondent_Sex) %>%
+  #mutate(Percent=round(n/sum(n)*100, digits = 2))
+  
+```
+
+```{r}
+#ggplot(scf_data_filtered, aes(x = Owns_Stocks, col = Respondent_Sex)) + geom_histogram(stat='count')
+
+#ggplot(scf_data_filtered, aes(x = Owns_Stock_Funds, col = Respondent_Sex)) + geom_histogram(stat='count')
+```
+
+
+```{r}
+#plot_data <- scf_data_filtered %>%
+ # select(A_Stocks=Owns_Stocks, B_Stock_Funds=Owns_Stock_Funds, C_Combination_Funds=Owns_Combination_Funds, D_Treasury_Bonds=Owns_Treasury_Bond_Funds, Respondent_Sex) %>%
+ # pivot_longer(-Respondent_Sex, names_to='Investment_Type', values_to='Response') %>%
+ # count(Respondent_Sex, Investment_Type, Response)
+
+#ggplot(plot_data, aes(x=Respondent_Sex, y=n, fill=Response))+
+ # geom_bar(stat = 'identity', position = 'dodge')+
+ # facet_grid(~Investment_Type)+
+  #ylab('Counts')+
+  #xlab('Investment Type')+
+ # theme(axis.text.x = element_text(angle = 45, vjust = 1.5, hjust=1))
+```
+
+```{r}
+plot_data1 <- scf_data_filtered %>%
+  select(A_Stocks=Owns_Stocks, B_Stock_Funds=Owns_Stock_Funds, C_Combination_Funds=Owns_Combination_Funds, D_Treasury_Bonds=Owns_Treasury_Bond_Funds, Financial_Decision_Maker) %>%
+  pivot_longer(-Financial_Decision_Maker, names_to='Investment_Type', values_to='Response') %>%
+  count(Financial_Decision_Maker, Investment_Type, Response)
+
+plot_data1
+```
+
+
+```{r}
+ggplot(plot_data1, aes(x=Financial_Decision_Maker, y=n, fill=Response))+
+  geom_bar(stat = 'identity', position = 'dodge')+
+  facet_grid(~Investment_Type)+
+  labs(title = "Ownership of Assets in Order from Riskiest to Least Risky (left to right)", y = "Respondents", x = "Investment Type") +
+  theme(axis.text.x = element_text(angle = 20, vjust = 1.2, hjust=1)) +
+  theme(legend.position = 'top')+
+  theme(plot.title = element_text(hjust = 0.4))
+```
+
+```{r}
+plot_data2 <- scf_data_filtered %>%
+  select(A_Stocks=Owns_Stocks, B_Stock_Funds=Owns_Stock_Funds, C_Combination_Funds=Owns_Combination_Funds, D_Treasury_Bonds=Owns_Treasury_Bond_Funds, Financial_Decision_Maker, Financial_Risk_Willingness_grouped) %>%
+  pivot_longer(-Financial_Decision_Maker, names_to= c('Investment_Type', 'Financial_Risk_Willingness_grouped'), names_sep = ".", values_to='Response') %>%
+  count(Financial_Decision_Maker, Investment_Type, Financial_Risk_Willingness_grouped, Response)
+
+plot_data2
+```
+
+```{r}
+ggplot(plot_data2, aes(x = Financial_Decision_Maker, y = n, fill = Response, col = Financial_Risk_Willingness_grouped)) + geom_bar(stat='identity', position = 'dodge')
+```
+
+
+```{r}
+ggplot(scf_data_filtered, aes(x = Financial_Decision_Maker, y = TMV_Investments, col = Financial_Risk_Willingness_grouped)) + geom_boxplot() +facet_wrap(~Investment_Type)
+```
+
+
+```{r}
+#owns_stocks_bar <- scf_data_filtered %>%
+  #filter(Owns_Stocks == "Yes") %>%
+  #ggplot(aes(x = Respondent_Sex)) + geom_bar(stat='count') +labs(x = "Stocks")
+
+#owns_stock_funds_bar <- scf_data_filtered %>%
+  #filter(Owns_Stock_Funds == "Yes") %>%
+  #ggplot(aes(x = Respondent_Sex)) + geom_bar(stat='count') + ylim(0, 6000) +labs(x = "Stock Funds", y = "") +theme(axis.ticks.y = element_blank())
+
+#owns_combination_funds_bar <- scf_data_filtered %>%
+  #filter(Owns_Combination_Funds == "Yes") %>%
+ # ggplot(aes(x = Respondent_Sex)) + geom_bar(stat='count') + ylim(0, 6000) +labs(x = "Combination Funds", y = "") +theme(axis.ticks.y.left = element_blank())
+
+#owns_treasury_bond_funds_bar <- scf_data_filtered %>%
+  #filter(Owns_Treasury_Bond_Funds == "Yes") %>%
+  #ggplot(aes(x = Respondent_Sex)) + geom_bar(stat='count') + ylim(0, 6000) +labs(x = "Treasury Bond Funds", y = "")
+
+
+#facet_grid(owns_stocks_bar, owns_stock_funds_bar, owns_combination_funds_bar, owns_treasury_bond_funds_bar)
+
+```
+
+
+
+```{r}
+ggplot(scf_data_filtered, aes(x = Financial_Risk_Willingness_grouped, fill = Financial_Decision_Maker)) + geom_bar(stat = "count", position = 'dodge')
+```

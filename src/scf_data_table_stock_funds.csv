@@ -1,0 +1,21 @@
+"","Sex","Investment_Type","Risk_Aversion","Owns","Number_of_Responses","Percentage"
+"1","Female","Stock_Funds","Very Risk Averse","No",97,55.4285714285714
+"2","Female","Stock_Funds","Very Risk Averse","Yes",78,44.5714285714286
+"3","Female","Stock_Funds","Somewhat Risk Averse","No",169,51.2121212121212
+"4","Female","Stock_Funds","Somewhat Risk Averse","Yes",161,48.7878787878788
+"5","Female","Stock_Funds","Risk Neutral","No",430,48.9192263936291
+"6","Female","Stock_Funds","Risk Neutral","Yes",449,51.0807736063709
+"7","Female","Stock_Funds","Somewhat Risk Tolerant","No",65,34.9462365591398
+"8","Female","Stock_Funds","Somewhat Risk Tolerant","Yes",121,65.0537634408602
+"9","Female","Stock_Funds","Very Risk Tolerant","No",15,31.9148936170213
+"10","Female","Stock_Funds","Very Risk Tolerant","Yes",32,68.0851063829787
+"11","Male","Stock_Funds","Very Risk Averse","No",327,59.7806215722121
+"12","Male","Stock_Funds","Very Risk Averse","Yes",220,40.2193784277879
+"13","Male","Stock_Funds","Somewhat Risk Averse","No",496,47.3282442748092
+"14","Male","Stock_Funds","Somewhat Risk Averse","Yes",552,52.6717557251908
+"15","Male","Stock_Funds","Risk Neutral","No",1522,40.1583113456464
+"16","Male","Stock_Funds","Risk Neutral","Yes",2268,59.8416886543536
+"17","Male","Stock_Funds","Somewhat Risk Tolerant","No",646,43.9754935330157
+"18","Male","Stock_Funds","Somewhat Risk Tolerant","Yes",823,56.0245064669843
+"19","Male","Stock_Funds","Very Risk Tolerant","No",301,43.9416058394161
+"20","Male","Stock_Funds","Very Risk Tolerant","Yes",384,56.0583941605839

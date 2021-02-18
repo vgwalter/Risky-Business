@@ -1,0 +1,568 @@
+---
+title: "Sex and Financial Risk Aversion"
+author: "Victoria G. Walter"
+output:
+  word_document:
+    toc: yes
+    toc_depth: '3'
+  pdf_document:
+    toc: yes
+    toc_depth: '3'
+  html_document:
+    toc: yes
+    toc_depth: '3'
+    toc_float: yes
+    theme: journal
+    highlight: zenburn
+---
+
+
+
+
+```{r setup, include=FALSE}
+#Load Packages
+library(dplyr)
+library(foreign)
+library(readr)
+library(readstata13)
+library(ggplot2)
+library(tidyverse)
+library(devtools)
+library(ggpubr)
+library(grid)
+library(ggalt)
+library(unikn)
+library(ggthemes)
+library(gridExtra)
+library(ggrepel)
+library(forcats)
+library(scales)
+library(magrittr)
+library(magrittr)
+library(qwraps2)
+library(wesanderson)
+library(arsenal)
+library(knitr)
+library(feather)
+library(useful)
+library(magrittr)
+library(patchwork)
+library(psych)
+library(vcd)
+library(DescTools)
+library(rcompanion)
+library(prettydoc)
+```
+
+
+# Introduction 
+
+**"How More Women on Wall Street Could Have Prevented the Financial Crisis"**
+
+This 2016 Fortune Magazine title and concept are obviously very intriguing-- and controversial-- but is there any merit to the idea? Or is it just click bait?
+
+The article, an except of Newton-Small's new book "Broad Influence: How Women Are Changing the Way America Works," discusses the Great Recession, it's causes, and the female regulators who were sent in to fix the situation.
+
+  *"The heart of the problem was risk, something mostly male Wall Street seemed to take irresponsibly and something the female regulators were sent in to mitigate. It's a cliched image: the straying reckless man and a woman at home holding things together. But there is some underlying truth in it. Neuroscience has shown links between risk taking and testosterone, which is 15 times as prevalent in men as in women. Many world leaders, from Bair to International Monetary Fund chief Christine Lagarde to British Labour deput leader Harriet Harman, who was then Prime Minister Gordon Brown's No. 2, go Japanese prime minister Shinzo Abe, became convinced that if more women had been working in senior Wall Street positions, the global financial crisis probably wouldn't have happened. And many saw the crisis as a wake-up call for Wall Street to diversify its ranks."*
+  
+The article goes on to explain a number of studies supporting the idea that women are more risk averse and that a greater female presence on Wall Street changes the overall behavior of trading floors to make fewer financially risky decisions.
+
+  Intrigued, I was inspired to create this report.
+
+**I am curious regarding three specific points:**
+
+
+  **1. Are women more risk averse investors?**
+  
+  **2. Are women more likely to invest in risk averse assets and less likely to invest in riskier assets?**
+  
+  **3. Do women invest more of their portfolios in risk averse assets and less in riskier assets?**
+  
+ 
+ Thus, I analyze investors' sex, self-reported level of risk aversion, what assets they own, the market value of those assets, and how much of their portfolios are invested in those asset.
+ 
+ In this report, you will find my methodology for this study, as well as several plots and Cochran-Mantel-Haenszel tests to answer my questions.
+ 
+# Methodology
+To do this, I select four common asset classes because of their distinct levels of risk. 
+
+## Explanation of Asset Classes and Risk
+
+ An important note: Stocks (equities) are generally more risky than bonds (debt instruments) because bondholders (those who own the company's debt) are paid before shareholders (those who own equity, stocks) if the company goes bankrupt. Thus, bondholders are more likely to receive their money back on their investment than shareholders/stock owners, and make bonds, generally, a less risky asset.
+
+ Stocks - individual shares of publicly traded equities. Of the four asset classes, they generally the most volatile and they are the most difficult to diversify and adjust for risk.
+
+ Stock Funds - a fund made up of stocks, including domestic stock funds, growth funds, index funds, global stock funds, sector funds. Still risky, but not as risky as stocks, because investors can diversify with many different shares to adjust for risk in companies and sectors.
+ 
+ Combination Funds - funds that hold both stocks and bonds. Less risky, because bonds are generally less risky than stocks, so the combination fund is reasonably diversified and risk adjusted.
+ 
+ Treasury Bond Funds - Treasury bonds are bonds backed by the United States government and are safest asset to own (except cash) because the United States has never defaulted. A treasury bond fund is just a fund made up of these bonds, most likely with different rates to maturity, such as a 2-year bond, 10-year bond, and 30-year bond.
+ 
+## Data
+ I use the most recent The Survey of Consumer Finances (2016), a survey to assess the economic and financial health of those in the United States, including families' balance sheets, pensions, incomes, and demographic information. It is conducted by the Federal Reserve Bank of New York every four years or so, partially in person and partially over the phone. The data set is very useful because it has a large sample size -- over 30,000 respondents -- and it offers a great depth of information -- over 6,000 variables. 
+ 
+ However, it is important to remember that the survey is voluntary, and very long and invasive, so population skews very high towards those that are older, likely retired, and likely to have more time on their hands. Additionally, the survey is predominantly White and thus isn't properly representative of the United States racial makeup in 2016 -- also a flaw of it being a very long voluntary survey.
+
+# Data Cleaning
+First I import and clean my data -- the 2016 Survey of Consumer Finances.
+
+## Importing 2016 Survey of Consumer Finances Data from Stata file
+```{R}
+scf_data <- read.dta13('../data/scfp2016s/p16i6.dta')
+```
+
+
+## Select Variables
+Once the data is imported, I select the specific columns I am Using for my analysis and rename them so they make sense. I chose the following variables:
+
+  **Variable**....................................................................................*Description*
+  
+  **Sex**..............................................................................................*What is the sex of the individual who makes the financial decisions in the Respondent's family?*
+            
+  **Financial_Risk_Willingness**...............................................*How willing to take financial risks is the individual who makes the financial decisions in the Respondent's family? On a Scale of -1 (Not at All Willing) to 10 (Very Willing)*
+                                                    
+  **Owns_Stocks**...........................................................................*Does the respondent own stocks?*
+              
+  **Owns_Stock_Funds**..............................................................*Does the respondent own stock funds?*
+                
+  **Owns_Combination_Funds**................................................*Does the respondent own combination funds?*
+                
+  **Owns_Treasury_Bonds_Funds**.........................................*Does the respondent own treasury bond funds?*
+                
+  **TMV_Stocks**............................................................................*Total Market Value of the Stocks the Respondent Owns in 2016 U.S. Dollars*
+                                                    
+  **TMV_Stock_Funds**...............................................................*Total Market Value of the Stock Funds the Respondent Owns in 2016 U.S. Dollars*
+                                                    
+  **TMV_Combination_Funds**.................................................*Total Market Value of the Combination Funds the Respondent Owns in 2016 U.S. Dollars*
+                                                    
+  **TMV_Treasury_Bond_Funds**............................................*Total Market Value of the Treasury Bond Funds Funds the Respondent Owns in 2016 U.S. Dollars*
+```{r}
+scf_data %<>%
+  select("Sex" = "X8000",
+         "Financial_Risk_Willingness" = "X7557", 
+         "Owns_Stocks" = "X3913", 
+         "Owns_Stock_Funds" = "X3821", 
+         "Owns_Combination_Funds" = "X3829", 
+         "Owns_Treasury_Bond_Funds" = "X3825", 
+         "TMV_Stocks" = "X3915", 
+         "TMV_Stock_Funds" = "X3822", 
+         "TMV_Combination_Funds" = "X3830",
+         "TMV_Treasury_Bond_Funds" = "X3826",)
+```
+
+## Recode and Factor Existing Categorical Variables
+Next, I recode the variables that are categorical so that they make sense, and make them factored
+
+```{r}
+scf_data$Sex = dplyr::recode_factor(as.character(scf_data$Sex), "1"="Female","5"="Male")
+
+scf_data$Owns_Stocks <- dplyr::recode(as.character(scf_data$Owns_Stocks), "1"="Owns", "5"="Does Not Own")
+```
+
+ For the fund variables -- stock funds, combination funds, and treasury bond funds -- the coding is as follows:
+     1 = Owns _____ funds, 5 = Doesn't own _____ funds, but owns other funds, 0 = Doesn't own any funds
+
+```{r}
+scf_data$Owns_Stock_Funds <- dplyr::recode(as.character(scf_data$Owns_Stock_Funds),"1"="Owns", 
+                                                                                "5"="Does Not Own",
+                                                                                "0"="Does Not Own")
+
+scf_data$Owns_Combination_Funds <- dplyr::recode(as.character(scf_data$Owns_Combination_Funds), "1"="Owns", 
+                                                                                    "5"="Does Not Own",
+                                                                                    "0"="Does Not Own")
+
+scf_data$Owns_Treasury_Bond_Funds <- dplyr::recode(as.character(scf_data$Owns_Treasury_Bond_Funds), 
+                                                                                    "1"="Owns", 
+                                                                                    "5"="Does Not Own",
+                                                                                    "0"="Does Not Own")
+```
+
+## Create New Variables 
+ Additionally, I am creating a few new variables to account for how much a Respondent owns in one asset relative to the other assets. 
+
+ First, I create "TMV_Investments," or the Total Market Value of Stocks, Stock Funds, Combination Funds, and Treasury Bond Funds the Respondent owns added together.
+
+ Then, I calculate the percentage of the Respondent's portfolio in each asset. This is done by dividing the Total Market Value of the Asset by the Total Market Value of all four assets combined and then multiplied by 100%.
+
+  **Variable**...................................................................................*Description*
+  
+  **"Percent_Stocks"**.................................................................*Percentage of the Respondent's Portfolio in Stocks*
+
+  **"Percent_Stock_Funds"**....................................................*Percentage of the Respondent's Portfolio in Stock Funds*
+
+  **"Percent_Combination_Funds"**......................................*Percentage of the Respondent's Portfolio in Combination Funds*
+
+  **"Percent_Treasury_Bonds"**.............................................*Percentage of the Respondent's Portfolio in Treasury Bond Funds*
+
+```{r}
+scf_data %<>%
+  mutate(TMV_Investments = TMV_Treasury_Bond_Funds + TMV_Stocks + TMV_Stock_Funds + TMV_Combination_Funds,
+         Percent_Treasury_Bond_Funds = TMV_Treasury_Bond_Funds / TMV_Investments * 100,
+         Percent_Combination_Funds = TMV_Combination_Funds / TMV_Investments * 100,
+         Percent_Stock_Funds = TMV_Stock_Funds / TMV_Investments * 100,
+         Percent_Stocks = TMV_Stocks / TMV_Investments * 100)
+```
+
+Next, I create the "Risk_Aversion" variable, which takes the Financial Risk Willingness scale of -1 to 10 and groups it into a condensed categorical variable. 
+
+  **Risk Aversion (New Variable)**...............................................*Financial Risk Willingness (Variable from SCF)*
+  
+  **Risk Averse**..........................................................................................................*-1, 1, 2, 3*
+  
+  **Risk Neutral**.............................................................................................................*4, 5, 6*
+  
+  **Risk Tolerant**........................................................................................................*7, 8, 9, 10*
+
+```{r}
+scf_data$Risk_Aversion <- cut(scf_data$Financial_Risk_Willingness,
+                                                   breaks = c(-Inf, 4, 7, Inf),
+                                                   labels = c("Risk Averse", "Risk Neutral", "Risk Tolerant"))
+```
+
+Then, I order the Risk Aversion variable from risk averse to risk tolerant.
+
+```{r}
+scf_data$Risk_Aversion <- ordered(scf_data$Risk_Aversion, levels = c("Risk Averse", "Risk Neutral", "Risk Tolerant"))
+```
+
+## Filtering Survey Data for Only Respondents that Own Investments
+The final step in cleaning is filtering only for Respondents who's Total Market Value of Investments (Stocks + Stock Funds +Combination Funds + Treasury Bond Funds) is Greater than 0. Therefore this analysis will only be run on Respondents that own at least 1 of the four assets.
+
+```{r}
+scf_data_cleaned <- scf_data %>%
+  filter(TMV_Investments>0)
+```
+
+This significantly reduces the data set, from 31,240 observations to 9,156.
+From this point on in the analysis, I will be referring to these filtered Respondents as "Investors."
+
+# Are women more risk averse investors?
+I am going to tackle this question in 2 ways:
+
+-a. How do male and female investors describe their risk tolerance?: Creating a pivot table and visualizing through a barplot
+
+-b. Are female investors more likely to report they are risk averse?: Creating a pivot table and analyzing using a Chi-squared test
+
+## a. How do male and female investors describe their risk tolerance?
+**Table 1:**
+I created a pivot table, "table_1," using the Sex and Risk Aversion variables, and then created a "Percentage" column. It makes more sense to use percentages instead of number of investors for this analysis, because there are so many more male investors than female investors.
+```{r}
+table_1 <- scf_data_cleaned %>%
+  select(Sex, Risk_Aversion) %>%
+  group_by(Sex, Risk_Aversion) %>%
+  summarise(Number_of_Responses=n()) %>%
+  group_by(Sex) %>%
+  mutate(Percentage=Number_of_Responses/sum(Number_of_Responses)*100)
+```
+
+**Graph 1:**
+I made a barplot with "table_1" to visualize if there are any noticeable differences between how the sexes report their level of risk averison. I use the Wes Anderson color palette Grand Budapest 1 from one of my favorite movies.
+
+```{r}
+ggplot(table_1, aes(x = Risk_Aversion, y = Percentage, fill = Sex))+ 
+  geom_bar(stat='identity', position='dodge')+
+  labs(x = "Risk Aversion", y = "Percentage", title = "Graph 1: Percentage of Male and Female Investors by Risk Aversion")+   
+  geom_text(aes(label=round(Percentage, digits = 2)), position=position_dodge(width=0.9), vjust=-0.25)+
+  theme_classic()+
+  theme(legend.position = "top")+
+  theme(axis.text.x = element_text(angle = 15, vjust = 1.2, hjust=1))+ 
+  scale_fill_manual(values = wes_palette("GrandBudapest1", n = 2))
+```
+
+**Insights from Graph 1:**
+Male investors are risk tolerant at twice the level of female investors -- 28.57% vs. 14.41%.
+
+There is a much greater percentage of female investors who are risk averse than men -- 31.23% vs. 21.16%.
+
+A slightly greater percentage of female investors are risk neutral than male investors, but it is close -- 54.36% vs. 50.27%.
+
+## b. Are female investors more likely to report they are risk averse?
+I make a table and then use a chi-squared test to test if there is a statistically significant relationship between sex and risk aversion.
+
+**Table**
+```{r}
+table_5 <- table(scf_data_cleaned$Risk_Aversion, scf_data_cleaned$Sex) 
+
+table_5
+```
+
+**Chi-Square Test**
+```{r}
+chisq.test(table_5)
+```
+*There is a statistically significant relationship between sex and risk aversion.*
+
+# Are women more likely to invest in risk averse assets and less likely to invest in riskier assets?
+
+I am going to assess this question in 3 ways:
+
+-a. Do men and women own each asset at about the same rate?: Creating a pivot table and visualizing using a barplot
+
+-b. Controlling for Risk Aversion, do men and women own each asset about the same rate?: Creating a pivot table and visualizing using a barplot
+
+-c. Analyze Sex, Asset type, and Risk Aversion using a fancy test
+
+## a. Do men and women own each asset at about the same rate?
+
+**Table 2:**
+
+I start my analysis by creating a pivot table, "table_2," of the number of male and female investors that own and do not each asset, and then create a "percent" column. Then, I factor the Asset variable. Finally, I filter "table_2" so that it only contains investors who own each asset, and create "table_2_filtered."
+
+```{r}
+table_2 <- scf_data_cleaned %>%
+  select(Stocks=Owns_Stocks, Stock_Funds=Owns_Stock_Funds, Combination_Funds=Owns_Combination_Funds, Treasury_Bond_Funds=Owns_Treasury_Bond_Funds, Sex) %>%
+  pivot_longer(-Sex, names_to='Asset', values_to='Response') %>%
+  count(Sex, Asset, Response) %>%
+  group_by(Sex, Asset) %>%
+  mutate(percent = n / sum(n) * 100)
+
+table_2$Asset <- factor(table_2$Asset, levels = c("Stocks", "Stock_Funds", "Combination_Funds", "Treasury_Bond_Funds", ordered = TRUE))
+
+table_2_filtered <- table_2 %>%
+  filter(Response=="Owns")
+```
+
+
+ **Graph 2:**
+I make a bar plot with "table_2_filtered" using ggplot2 to visualize the Percentage of Investors who own each asset, broken down by sex. 
+ 
+```{r}
+ggplot(table_2_filtered, aes(x=Sex, y=percent, fill=Sex))+
+  geom_bar(stat = 'identity', position = 'dodge')+
+  facet_grid(~Asset)+
+  labs(title = "Graph 2: The Percentage of Male and Female Investors that Own Each Asset, \n   from Riskiest to Least Risky Asset (left to right)", y = "Percentage of Investors", x = "Asset") +
+  geom_text(aes(label=round(percent, digits=2)), position=position_dodge(width=0.9), vjust=-0.25)+
+  theme_classic()+
+  theme(axis.text.x = element_text(angle = 20, vjust = 1.2, hjust=1)) +
+  theme(legend.position = "non")+
+  theme(plot.title = element_text(hjust = 0.4))+
+  scale_fill_manual(values = wes_palette("GrandBudapest1", n = 3))
+```
+
+**Insights from Graph 2:**
+ There is a greater share of men than women who own each asset, though the difference is not by much.
+ Stocks are the most popularly owned asset, followed by Stock Funds, Treasury Bond Funds, and Combination Funds.
+
+ 68.34% of women own stocks compared to 74.44% of men. This is a difference of 8.93%.
+ 
+ 52.01% of women own stock funds versus 56.33% of men. This is a difference of 8.31%.
+ 
+ 6.31% of women own combination funds compared to 8.26% men. This is a difference of 23.61%.
+ 
+ 6.06% of women own treasury bond funds versus 9.01% men. This is a difference of 32.74%.
+ 
+ The differences in ownership for combination funds and treasury bond funds seem extreme, but it is important to note the small sample sizes since most of the investors in the study do not own those assets.
+
+## b. Controlling for Risk Aversion, do men and women own each asset about the same rate?
+
+**Table 3:**
+Next, I create the pivot table, "table_3," to observe what percentage of investors who own each asset identity as different levels of risk aversion. This is useful to see, considering that the each asset has a different level of risk. Do those that own risky assets have a higher percentage of people that are risk tolerant? Do those that own less risky assets have a higher percentage of people that are risk averse? "Table_3" also breaks this information down by sex. 
+
+Additionally, I factor the Asset column and order the levels from most risky to least risky asset.
+
+Finally, I filter the Owns column in "table_3," to create "table_3_filtered," so that only investors that own that particular asset are in the data.
+```{r}
+table_3 <- scf_data_cleaned %>%
+  select(Stocks=Owns_Stocks, Stock_Funds=Owns_Stock_Funds, Combination_Funds=Owns_Combination_Funds, Treasury_Bond_Funds=Owns_Treasury_Bond_Funds, Sex, Risk_Aversion) %>%
+  pivot_longer(-c(Sex, Risk_Aversion), names_to= 'Asset',  values_to='Response') %>%
+  count(Sex, Asset, Risk_Aversion, Response) %>%
+  group_by(Sex, Asset, Risk_Aversion) %>%
+  mutate(percent = n / sum(n) * 100)
+
+table_3$Asset <- factor(table_3$Asset, levels = c("Stocks", "Stock_Funds", "Combination_Funds", "Treasury_Bond_Funds", ordered = TRUE))
+
+table_3_filtered <- table_3 %>%
+  filter(Response=="Owns")
+
+table_3
+```
+
+**Graph 3:**
+I made a barplot to visualize "table_3_filtered" and see if the investors in this data set invest according to their risk tolerance.
+```{r}
+ggplot(table_3_filtered, aes(x = Risk_Aversion, y = percent, fill = Risk_Aversion))+
+  geom_bar(stat='identity', position = 'dodge')+
+  facet_wrap(~Asset + Sex, ncol=4)+
+  labs(x = "Risk Aversion", y = "Percentage", title = "Graph 3: Percentage of Investors that Own Each Asset, \n by Risk Aversion and Sex")+
+  geom_text(aes(label=round(percent, digits = 2)), position=position_dodge(width=0.9), vjust=-0.25)+
+  theme_classic()+
+  theme(axis.text.x = element_blank())+ 
+  theme(axis.ticks.x = element_blank())+
+  theme(legend.position = "top")+
+  scale_fill_manual(values = wes_palette("GrandBudapest1", n = 3))
+```
+
+**Insights from Graph 3:**
+There are three instances of investors investing in accordance with their risk aversion.
+
+1. The share of men who are invested in stocks increases with increased risk tolerance: 68.71% of risk averse men own stocks, 72.88% of risk neutral men own stocks, and 81.42% of risk tolerant men own stocks. This makes sense because stocks are the riskiest of the four asssets.
+
+2. The share of women who are invested in stock funds increases as women become risk tolerant: 47.33% of risk averse women own stock funds, 51.08% of risk neutral women own stock funds, and 65.67% of risk tolerant women own stock funds. This also makes sense because stock funds are the second riskiest of the four assets.
+
+3. The share of risk averse women who own treasury bond funds is nearly twice that of the risk neutral and risk tolerant women who own treasury bond funds. This makes sense because treasury bond funds are the least risky of the four assets.
+
+Aside from these instances, there seems to be very little variation in the percentage of each asset owned across the levels of risk aversion. Thus, risk aversion may not have an effect on which assets an investor chooses to invest in.
+
+
+## c. Cochran-Mantel-Haenszel Tests
+I use the Cochran-Mantel-Haenszel test to analyze if it is statistically significant that one sex is more likely than the other to invest -- first in general, and then for each asset individually-- than the other while controlling for Risk Aversion. The variables I will be using are Sex, Asset, Risk Aversion, and Owns -- whether or not the investor owns that particular investment.
+
+The Cochran-Mantel-Haenszel test is useful because it is used for categorical variables, can analyze up to three variables at a time (a chi-squared test can only analyze two at a time), and it controls for how there are six times as many male investors as female investors.
+
+First, I will run this test on all of the asset classes together, and then each asset class individually. 
+### All Asset Classes
+ **Create Table:**
+ I start by creating a data table, "dt," to organize the data which I will use throughout the process of checking for statistical significance. This includes the count and percentage for each sex, level of risk aversion, and asset owned.
+ 
+ For example: How many women are risk averse and owned stocks? What percentage of men are risk neutral and own combination funds?
+```{r}
+dt <- scf_data_cleaned %>% select(Sex, Treasury_Bond_Funds=Owns_Treasury_Bond_Funds, Stocks=Owns_Stocks, Stock_Funds=Owns_Stock_Funds, Combination_Funds=Owns_Combination_Funds, Risk_Aversion) %>% pivot_longer(-c(Sex, Risk_Aversion), names_to='Asset', values_to='Owns') %>%
+  group_by(Sex, Asset, Risk_Aversion, Owns) %>%
+  summarise(Number_of_Responses=n()) %>%
+  group_by(Sex, Asset, Risk_Aversion) %>%
+  mutate(Percentage=Number_of_Responses/sum(Number_of_Responses)*100)
+```
+Here, I combine the Asset and Risk Aversion variables into one column because the Cochran-Mantel-Haenszel test can only analyze three categorical variables at a time. Thus, "Asset__Risk_Aversion," collapses the two variables into one. Also, I condense the table by not selecting "Percentage." Below is what the data looks like.
+```{r}
+dt_all <- xtabs(Number_of_Responses ~ Asset__Risk_Aversion +Sex + Owns, data = dt %>% mutate(Asset__Risk_Aversion = paste0(Asset,'_', Risk_Aversion)))
+
+ftable(dt_all)
+```
+ **Cochran-Mantel-Haenszel Test**
+```{r}
+mantelhaen.test(dt_all)
+```
+ **Findings:**
+It is statistically significant than men are more likely to invest than women.
+
+### Stocks
+Next, I analyze for stock ownership only.
+
+**Create Table:**
+I filter the original data table, "dt" for only stocks to create "dt_s." Then, I condense the data because I no longer need the "Percentage" variable to create "dt_stocks." Below is what the data looks like.
+```{r}
+dt_s <- dt %>%
+  filter(Asset=="Stocks")
+
+dt_stocks <- xtabs(Number_of_Responses ~ Risk_Aversion+Sex+Owns, data = dt_s)
+
+ftable(dt_stocks)
+```
+**Cochran-Mantel-Haenszel Test**
+```{r}
+mantelhaen.test(dt_stocks)
+```
+**Findings:**
+It is a statistically significant finding that men are more likely to invest in stocks than women.
+
+### Stock Funds
+Next, I analyze for stock funds. 
+
+**Create Table:**
+I filter the original data table, "dt" for only stock funds to create "dt_sf." Then, I condense the data because I no longer need the "Percentage" variable to create "dt_stock_funds." Below is what the data looks like.
+```{r}
+dt_sf <- dt %>%
+  filter(Asset=="Stock_Funds")
+
+dt_stock_funds <- xtabs(Number_of_Responses ~ Risk_Aversion+Sex+Owns, data = dt_sf)
+
+ftable(dt_stock_funds)
+```
+
+**Cochran-Mantel-Haenszel test**
+```{r}
+mantelhaen.test(dt_stock_funds)
+```
+**Findings:**
+It is a statistically significant finding that men are more likely to invest in stock funds than women.
+
+### Combination Funds
+
+**Create Table:**
+I filter the original data table, "dt" for only combination funds to create "dt_cf." Then, I condense the data because I no longer need the "Percentage" variable to create "dt_combination_funds." Below is what the data looks like.
+```{r}
+dt_cf <- dt %>%
+  filter(Asset=="Combination_Funds")
+
+dt_combination_funds <- xtabs(Number_of_Responses ~ Risk_Aversion+Sex+Owns, data = dt_cf)
+
+ftable(dt_combination_funds)
+```
+
+**Cochran-Mantel-Haenszel test**
+```{r}
+mantelhaen.test(dt_combination_funds)
+```
+**Findings:**
+It is a statistically significant finding that men are more likely to invest in combination funds than women.
+
+### Treasury Bond Funds
+
+**Create Table:**
+I filter the original data table, "dt" for only treasury bond funds to create "dt_tbf." Then, I condense the data because I no longer need the "Percentage" variable to create "dt_treasury_bond_funds." Below is what the data looks like.
+```{r}
+dt_tbf <- dt %>%
+  filter(Asset=="Treasury_Bond_Funds")
+
+dt_treasury_bond_funds <- xtabs(Number_of_Responses ~ Risk_Aversion+Sex+Owns, data = dt_tbf)
+
+ftable(dt_treasury_bond_funds)
+```
+
+**Cohran-Mantel-Haenszel Test**
+```{r}
+mantelhaen.test(dt_treasury_bond_funds)
+```
+**Findings:**
+It is a statistically significant finding that men are more likely to invest in treasury bond funds than women.
+
+# Do women invest more of their portfolios in risk averse assets and less in riskier assets?
+
+**Table 4:**
+This question is a little more straightforward. 
+
+I create a pivot table, "table_4," with the variables that represent the percent of each asset ("Percent_Stocks," "Percent_Stock_Funds," "Percent_Combination_Funds," "Percent_Treasury_Bond_Funds"), sex, and risk aversion. 
+
+Then, I factor the Asset variable and order the levels from riskiest to least risk asset. 
+
+Finally, I filter "table_4," and create "table_4_filtered," so that it only shows data for investors who own each asset, which effectively is if the percentage of their portfolio in that asset is greater than zero.
+```{r}
+table_4 <- scf_data_cleaned %>%
+  select(Stocks=Percent_Stocks, Stock_Funds=Percent_Stock_Funds, Combination_Funds=Percent_Combination_Funds, Treasury_Bond_Funds=Percent_Treasury_Bond_Funds, Sex, Risk_Aversion) %>%
+  pivot_longer(-c(Sex, Risk_Aversion), names_to='Asset', values_to='Percentage_of_Portfolio') %>%
+  summarise(Sex, Asset, Risk_Aversion, Percentage_of_Portfolio)
+
+table_4$Asset <- factor(table_4$Asset, levels = c("Stocks", "Stock_Funds", "Combination_Funds", "Treasury_Bond_Funds", ordered = TRUE))
+
+table_4_filtered <- table_4 %>%
+  filter(Percentage_of_Portfolio > 0)
+```
+
+**Graph 4:**
+I create boxplots to visualize the distribution of portfolio makeup across the investors and grouped by sex and risk aversion.
+```{r}
+ggplot(table_4, aes(x = Sex, y = Percentage_of_Portfolio, col = Risk_Aversion))+
+  geom_boxplot()+ 
+  facet_wrap(~Asset, ncol = 4)+ 
+  labs(x = "Sex", y = "Percentage of Investors' Portfolios", title = "Graph 4: Boxplots of the Percentage of Respondents' Portfolios in Each Asset, \n Grouped by Sex and Colored by Risk Aversion")+
+  theme_classic()+
+  theme(legend.position = "top")+
+  scale_color_manual(values = wes_palette("GrandBudapest1", n = 3))
+```
+
+**Insights from Graph 4:**
+*These results are pretty interesting!* 
+
+It seems that for most investors who own stocks, the majority of their portfolio is in stocks. For both men and women, the 50th and 75th percentiles are at 100% for all levels of risk aversion.
+
+The results for stock funds are particularly interesting because we see distinct differences between male and female investors. The 50th and 75th percentiles are still at 100%, but for male investors, the 25th and 50th percentiles decrease as male investors become more comfortable with risk.
+
+For Combination Funds and Treasury Bond Funds, the 25th, 50th, and 75th percentiles decrease as both male and female investors become more comfortable with risk. Combination and Treasury Bond Funds are the least risky. Thus, it seems that investors who are risk averse own a greater share of their portfolio in the least risky assets. Logically, this makes a lot of sense.
+
+
+# Conclusion
+There is a statistically significant relationship between sex and self-reported financial risk aversion and Graph 1 shows that there is a greater share of women who are risk averse and risk neutral than men, and thus a greater share of men who are risk tolerant in this study. However, when it comes to the actual portfolios of investors in this study, there wasn't a big difference in how men and women invest. As shown in Graphs 2 and 3, there are a few examples of risk tolerant investors having a bigger portion of their portfolios in risky assets like stocks and stock funds, as well as risk averse investors having a bigger portion of their portfolios in risk averse assets like treasury bond funds. However, for the most part, self-reported risk aversion doesn't seem to have a big impact on portfolio makeup.
+
+Men are more likely to invest than women overall and for each asset class. 
+
+There is an important caveat to this analysis, however. Though stocks generally are the riskiest asset, there is a wide variety of risk levels for different types of stocks. For example, an investor could own a share of a Blue Chip stock that is not volatile and is known for having consistent and reliable growth -- which would make it not very risky. Another investor could own a stock fund where the underlying stocks in the fund are very volatile -- making it very risky. So in this example, the stock fund is actually riskier than the stock. Unfortunately, there is no way to control for this using this data because the Survey of Consumer Finances does not ask specific questions about the risk level of the assets they own.
